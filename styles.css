@@ -981,8 +981,8 @@ button { font: inherit; }
   /* Списки адресов и телефонов — bottom sheet */
   #addrPop .scrim, #phonePop .scrim { background: rgba(26,51,40,0.45); animation: scrim-in 0.22s ease both; }
   #addrPop .popover, #phonePop .popover {
-    position: fixed; left: 0; right: 0; bottom: 0; top: auto; border-radius: 20px 20px 0 0;
-    max-height: 88vh; max-height: 88dvh; display: flex; flex-direction: column; padding-top: 0;
+    position: fixed; left: 0; right: 0; bottom: 0; bottom: var(--kb, 0px); top: auto; border-radius: 20px 20px 0 0;
+    max-height: 88vh; max-height: 88dvh; max-height: calc(var(--vvh, 100vh) * 0.88); display: flex; flex-direction: column; padding-top: 0;
     overflow: visible;
     animation: sheet-up 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
@@ -992,6 +992,11 @@ button { font: inherit; }
   #phonePop #phoneListWrap,
   #phonePop .pop-form { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
   #phonePop #phoneListWrap { display: flex; flex-direction: column; overflow: hidden; }
+  #phonePop .pop-form { display: flex; flex-direction: column; padding-bottom: 0; }
+  #phonePop .pop-form-actions {
+    position: sticky; bottom: 0; z-index: 3; flex: none; margin-top: auto; background: #fff;
+    padding: 14px 0 calc(16px + env(safe-area-inset-bottom));
+  }
   #phonePop #phoneList { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 
   #addrPop .list-foot, #phonePop .list-foot {
@@ -1021,13 +1026,17 @@ button { font: inherit; }
   /* Радио-кнопка — по центру первой строки текста */
   .list-row > .radio { align-self: flex-start; margin-top: 1px; }
   /* Телефоны — одна строка текста, радио центрируем по номеру */
-  .list-row:has(.row-title--phone) { align-items: center; }
-  .list-row:has(.row-title--phone) > .radio { align-self: center; margin-top: 0; }
+  .list-row:has(.row-title--phone), .list-row.hf-phone { align-items: center; }
+  .list-row:has(.row-title--phone) > .radio,
+  .list-row.hf-phone > .radio { align-self: center; margin-top: 0; }
   /* Телефон и адрес: кнопка редактирования — только иконка, справа на той же строке */
   .list-row:has(.row-title--phone) .row-actions,
-  .list-row:has(.btn-edit--icon) .row-actions { width: auto; margin-left: auto; padding-left: 0; }
-  .list-row:has(.btn-edit--icon) { align-items: center; flex-wrap: nowrap; }
-  .list-row:has(.btn-edit--icon) > .radio { align-self: center; margin-top: 0; }
+  .list-row.hf-phone .row-actions,
+  .list-row:has(.btn-edit--icon) .row-actions,
+  .list-row.hf-iconedit .row-actions { width: auto; margin-left: auto; padding-left: 0; }
+  .list-row:has(.btn-edit--icon), .list-row.hf-iconedit { align-items: center; flex-wrap: nowrap; }
+  .list-row:has(.btn-edit--icon) > .radio,
+  .list-row.hf-iconedit > .radio { align-self: center; margin-top: 0; }
   .btn-edit--phone, .btn-edit--icon { width: 42px; height: 42px; padding: 0; gap: 0; justify-content: center; }
   .btn-edit--phone .btn-edit-label, .btn-edit--icon .btn-edit-label { display: none; }
   /* Адрес: форма — кнопка удаления только иконка */
@@ -1040,11 +1049,12 @@ button { font: inherit; }
   .row-lock { width: 100%; margin-left: 0; justify-content: flex-end; }
 
   /* Модалка адреса как нижний лист (bottom sheet) */
-  .modal-scrim { padding: 0; align-items: flex-end; }
+  .modal-scrim { padding: 0 0 var(--kb, 0px); align-items: flex-end; }
   .modal-scrim:not([hidden]) { animation: scrim-in 0.22s ease both; }
-  .modal-scrim--confirm { padding: 20px; align-items: center; }
+  .modal-scrim--confirm { padding: 20px; padding-bottom: calc(20px + var(--kb, 0px)); align-items: center; }
   .modal {
-    width: 100%; max-width: 100%; height: auto; min-height: 0; max-height: 50dvh;
+    width: 100%; max-width: 100%; height: auto; min-height: 0;
+    max-height: 50vh; max-height: 50dvh; max-height: calc(var(--vvh, 100vh) * 0.5);
     border-radius: 20px 20px 0 0; padding: 0 16px; gap: 0; overflow: visible;
     animation: sheet-up 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
@@ -1056,7 +1066,8 @@ button { font: inherit; }
     background: rgba(255,255,255,0.4);
   }
   /* Над картой (светлый фон) шторка тёмная */
-  #addrModal:has(.modal-map-bg:not([hidden])) .sheet-handle { background: rgba(107,107,107,0.4); }
+  #addrModal:has(.modal-map-bg:not([hidden])) .sheet-handle,
+  #addrModal.hf-map .sheet-handle { background: rgba(107,107,107,0.4); }
   /* На 2-м шаге карта затеняется — шторка снова светлая */
   #addrModal.is-step2 .modal-map-bg:not([hidden])::after {
     content: ""; position: absolute; inset: 0; background: rgba(26,51,40,0.45); z-index: 1;
@@ -1072,7 +1083,8 @@ button { font: inherit; }
   .sheet-close { right: 8px; }
   .sheet-back { left: 8px; display: none; }
   #addrModal.is-step2 .sheet-back, #addrModal.has-list .sheet-back { display: inline-flex; }
-  #phonePop .popover:has(#phoneForm:not([hidden])) .sheet-back { display: inline-flex; }
+  #phonePop .popover:has(#phoneForm:not([hidden])) .sheet-back,
+  #phonePop .popover.hf-form .sheet-back { display: inline-flex; }
   .sheet-close:active, .sheet-back:active { transform: scale(0.92); }
   .modal-head {
     position: sticky; top: 0; z-index: 6; background: #fff;
@@ -1104,8 +1116,11 @@ button { font: inherit; }
   .comment-wrap { margin-top: 4px; }
 
   /* Лист адреса в два шага: 1 — карта и адрес, 2 — остальные поля */
-  #addrModal .modal { max-height: 88dvh; }
-  #addrModal.is-step1 .modal { max-height: 88dvh; }
+  #addrModal .modal,
+  #addrModal.is-step1 .modal,
+  #addrModal.is-step2 .modal {
+    max-height: 88vh; max-height: 88dvh; max-height: calc(var(--vvh, 100vh) * 0.88);
+  }
   #addrModal.is-step1 .modal-form-row,
   #addrModal.is-step1 #addrPhoneWrap,
   #addrModal.is-step1 .modal-comment { display: none; }
@@ -1117,9 +1132,9 @@ button { font: inherit; }
   #addrModal.is-step1 .modal-form { min-height: 0; }
   /* Подсказки раскрываются вверх, чтобы не упираться в край короткого листа */
   #addrModal.is-step1 .suggests {
-    top: auto; bottom: 100%; margin: 0 0 6px; z-index: 8; max-height: 34dvh; overflow-y: auto;
+    top: auto; bottom: 100%; margin: 0 0 6px; z-index: 8; overflow-y: auto;
+    max-height: 34vh; max-height: 34dvh; max-height: calc(var(--vvh, 100vh) * 0.34);
   }
-  #addrModal.is-step2 .modal { max-height: 88dvh; }
   #addrModal.is-step2 .modal-form { min-height: 0; }
   #addrModal.is-step2 #addrFieldWrap { display: none; }
   #addrModal.is-step2 .sheet-recap { display: flex; }
@@ -1145,7 +1160,7 @@ button { font: inherit; }
   #addrModal .modal { position: relative; z-index: 1; }
   #addrModal .modal-map-bg:not([hidden]) {
     position: absolute; inset: 0; z-index: 0; display: flex; align-items: flex-start; justify-content: center;
-    padding: clamp(40px, 12dvh, 120px) 24px 0;
+    padding: clamp(40px, 12vh, 120px) 24px 0;
     background: var(--ceramic) url("assets/map.jpg") center/cover no-repeat;
     animation: map-in 0.4s ease both;
   }
@@ -1265,9 +1280,10 @@ button { font: inherit; }
   content: ""; flex: none; width: 5px; height: 5px; border-radius: var(--radius-full); background: var(--green-uplift);
 }
 @media (max-width: 767px) {
-  .modal-scrim--tk { padding: 0; align-items: flex-end; }
+  .modal-scrim--tk { padding: 0 0 var(--kb, 0px); align-items: flex-end; }
   .tk-card {
-    max-width: 100%; max-height: 82dvh; border-radius: 20px 20px 0 0;
+    max-width: 100%; border-radius: 20px 20px 0 0;
+    max-height: 82vh; max-height: 82dvh; max-height: calc(var(--vvh, 100vh) * 0.82);
     position: relative; overflow: visible;
     animation: sheet-up 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
@@ -1326,3 +1342,8 @@ button { font: inherit; }
 }
 
 .total-cents { font-size: 0.62em; font-weight: 700; letter-spacing: 0; vertical-align: baseline; }
+
+/* ---------- Мобильные листы: колонка не должна быть containing block для fixed ---------- */
+@media (max-width: 767px) {
+  .col-left { container-type: normal; }
+}

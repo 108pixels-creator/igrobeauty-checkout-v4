@@ -102,7 +102,7 @@
                   </div>
                   <div class="pop-form" id="phoneForm" hidden>
                     <div class="pop-field">
-                      <input type="tel" class="field field--phone" id="phoneInput" placeholder="+7 (___) ___-__-__">
+                      <input type="tel" inputmode="tel" autocomplete="tel" class="field field--phone" id="phoneInput" placeholder="+7 (___) ___-__-__">
                       <button type="button" class="input-clear" id="phoneClear" aria-label="Удалить номер" hidden>
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M19.7293 21.246C21.8289 21.246 22.8836 20.2114 22.8836 18.1324V5.86711C22.8836 3.78811 21.8289 2.75354 19.7293 2.75354H11.0006C9.82542 2.75354 8.81057 3.05483 7.98728 3.92868L2.07085 10.0765C1.41814 10.7494 1.11685 11.352 1.11685 11.985C1.11685 12.6077 1.40828 13.2205 2.07085 13.8934L7.99714 20.0104C8.83114 20.8744 9.83571 21.2361 11.0109 21.2361L19.7293 21.246ZM19.7096 19.629H10.98C10.2167 19.629 9.74442 19.4481 9.21214 18.9055L3.32657 12.8284C2.98499 12.477 2.88471 12.2361 2.88471 11.985C2.88471 11.7235 2.99485 11.4827 3.32614 11.1313L9.20271 5.03397C9.72514 4.50168 10.2171 4.37097 10.9706 4.37097H19.7091C20.7137 4.37097 21.2661 4.90325 21.2661 5.94811V18.0514C21.2661 19.0963 20.7137 19.6285 19.7091 19.6285M17.1879 16.113C17.6194 16.113 17.9713 15.7714 17.9713 15.3493C17.9713 15.1384 17.8809 14.9575 17.73 14.8071L14.9177 11.9845L17.73 9.17183C17.8809 9.0214 17.9713 8.83025 17.9713 8.62968C17.9713 8.19768 17.6096 7.83597 17.1879 7.83597C16.9864 7.83597 16.7957 7.9264 16.6453 8.07725L13.8326 10.8998L11.0104 8.07725C10.8596 7.9264 10.6787 7.83597 10.4679 7.83597C10.0461 7.83597 9.68442 8.19768 9.68442 8.62968C9.68442 8.83025 9.77442 9.0214 9.92528 9.17183L12.738 11.9845L9.92528 14.8071C9.77485 14.9575 9.68442 15.1384 9.68442 15.3493C9.68442 15.7714 10.0359 16.113 10.4679 16.113C10.689 16.113 10.8596 16.0427 11.0001 15.9021L13.833 13.0594L16.6551 15.9021C16.7957 16.0427 16.9766 16.113 17.1879 16.113Z" fill="currentColor"/></svg>
                       </button>
@@ -1666,6 +1666,48 @@
   });
 
   setScenario("returning");
+})();
+</script>
+<script>
+/* Клавиатура и панель автозаполнения: реальная высота видимой области + :has() фолбэк */
+(function () {
+  var root = document.documentElement, vv = window.visualViewport, raf = 0;
+  function sync() {
+    raf = 0;
+    var h = vv ? vv.height : window.innerHeight;
+    var kb = vv ? Math.max(0, window.innerHeight - (vv.height + vv.offsetTop)) : 0;
+    root.style.setProperty("--vvh", Math.round(h) + "px");
+    root.style.setProperty("--kb", Math.round(kb) + "px");
+  }
+  function schedule() { if (!raf) raf = requestAnimationFrame(sync); }
+  if (vv) { vv.addEventListener("resize", schedule); vv.addEventListener("scroll", schedule); }
+  window.addEventListener("resize", schedule);
+  window.addEventListener("orientationchange", schedule);
+  sync();
+
+  var hasSel = false;
+  try { hasSel = window.CSS && CSS.supports && CSS.supports("selector(:has(*))"); } catch (e) {}
+  if (!hasSel) {
+    var apply = function () {
+      var rows = document.querySelectorAll(".list-row"), i, r;
+      for (i = 0; i < rows.length; i++) {
+        r = rows[i];
+        r.classList.toggle("hf-phone", !!r.querySelector(".row-title--phone"));
+        r.classList.toggle("hf-iconedit", !!r.querySelector(".btn-edit--icon"));
+      }
+      var am = document.getElementById("addrModal");
+      if (am) {
+        var mb = am.querySelector(".modal-map-bg");
+        am.classList.toggle("hf-map", !!mb && !mb.hasAttribute("hidden"));
+      }
+      var pp = document.querySelector("#phonePop .popover"), pf = document.getElementById("phoneForm");
+      if (pp) pp.classList.toggle("hf-form", !!pf && !pf.hasAttribute("hidden"));
+    };
+    apply();
+    var t = 0;
+    new MutationObserver(function () { clearTimeout(t); t = setTimeout(apply, 30); })
+      .observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["hidden"] });
+  }
 })();
 </script>
 </body>
