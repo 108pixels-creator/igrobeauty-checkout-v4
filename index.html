@@ -108,8 +108,8 @@
                       </button>
                     </div>
                     <div class="pop-form-actions">
-                      <button type="button" class="btn-primary btn-primary--inline" id="phoneSave">Сохранить</button>
                       <button type="button" class="btn-del-wide" id="phoneDelete" aria-label="Удалить телефон" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13.5 2.7998C13.9358 2.7998 14.3932 2.95286 14.7197 3.28027C15.0483 3.60828 15.2002 4.06447 15.2002 4.5V5.0498H20.4502V6.9502H19.6094L18.1992 20.3418L18.1289 21.0205L18.1094 21.2002H5.89062L5.87109 21.0205L5.80078 20.3418L4.39062 6.9502H3.5498V5.0498H8.7998V4.5C8.7998 4.06322 8.95405 3.60754 9.28027 3.28125C9.60811 2.95342 10.064 2.7998 10.5 2.7998H13.5ZM7.60938 19.2998H16.3906L17.6836 6.9502H6.31641L7.60938 19.2998ZM10.7002 5.0498H13.2998V4.25388H10.7002V5.0498Z" fill="currentColor"/></svg><span class="btn-del-label">Удалить</span></button>
+                      <button type="button" class="btn-primary btn-primary--inline" id="phoneSave">Сохранить</button>
                     </div>
                   </div>
                 </div>
@@ -676,6 +676,7 @@
           </div>
         </div>
         <div class="modal-actions">
+          <button type="button" class="btn-del-wide" id="addrDelete" aria-label="Удалить адрес" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-del-label">Удалить</span></button>
           <button type="button" class="btn-primary btn-primary--wide btn-next" id="addrNext">Далее</button>
           <button type="button" class="btn-primary btn-primary--wide" id="addrSave">Сохранить<span class="save-long">адрес</span></button>
           <button type="button" class="btn-grey btn-grey--modal btn-back" id="addrBack" data-action="addr-back">
@@ -683,7 +684,6 @@
             Назад
           </button>
           <button type="button" class="btn-grey btn-grey--modal btn-cancel" data-action="addr-modal-close">Отмена</button>
-          <button type="button" class="btn-del-wide" id="addrDelete" aria-label="Удалить адрес" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-del-label">Удалить</span></button>
         </div>
       </div>
       <div class="modal-map" id="modalMap">
@@ -746,8 +746,8 @@
       <span class="confirm-sub" id="confirmSub"></span>
     </div>
     <div class="confirm-actions">
-      <button type="button" class="btn-danger" id="confirmDelete">Удалить</button>
       <button type="button" class="btn-grey btn-grey--confirm" data-action="confirm-cancel">Отмена</button>
+      <button type="button" class="btn-danger" id="confirmDelete">Удалить</button>
     </div>
   </div>
 </div>
