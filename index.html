@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оформление заказа — IGRObeauty</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page" id="page">
+  <div class="container">
+
+    <!-- Панель сценариев -->
+    <div class="bpbar">
+      <span class="bp-chip bp-desktop">Desktop · 1280+</span>
+      <span class="bp-chip bp-tablet">Tablet · 768–1279</span>
+      <span class="bp-chip bp-mobile">Mobile · 320–767</span>
+      <button type="button" class="sc-btn" id="scNew">1 · Новый покупатель</button>
+      <button type="button" class="sc-btn is-active" id="scRet">2 · Бывалый покупатель</button>
+      <button type="button" class="btn-reset" id="scReset">Сбросить сценарий</button>
+    </div>
+
+    <!-- Заголовок + степпер -->
+    <div class="head-row">
+      <div class="head-text">
+        <h1 class="page-title" id="pageTitle">Оформление заказа</h1>
+      </div>
+      <div class="stepper" id="stepper">
+        <div class="step is-done">
+          <div class="step-line"></div>
+          <div class="step-circle">
+            <span class="step-num">1</span>
+            <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="step-label">Корзина</span>
+        </div>
+        <div class="step is-current">
+          <div class="step-line"></div>
+          <div class="step-circle">
+            <span class="step-num">2</span>
+            <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="step-label">Оформление заказа</span>
+        </div>
+        <div class="step">
+          <div class="step-line"></div>
+          <div class="step-circle">
+            <span class="step-num">3</span>
+            <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="step-label">Заказ принят</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-grid">
+
+      <!-- ЛЕВАЯ КОЛОНКА -->
+      <div class="col-left">
+
+        <div id="screenCheckout">
+
+          <!-- Телефон для согласования -->
+          <div class="sec is-open" id="secPhone">
+            <div class="sec-head" data-toggle="phone">
+              <span class="sec-title"><span class="sec-num">1</span>. Ваш телефон <span class="req">*</span></span>
+              <span class="sec-chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="sec-body">
+              <p class="hint">По этому телефону мы с вами свяжемся и подтвердим заказ</p>
+              <div class="rel">
+              <div class="empty-slot" id="phoneEmpty" hidden>
+                <button type="button" class="btn-add" data-action="phone-open"><span class="plus">+</span> Добавить номер телефона</button>
+              </div>
+
+              <div class="phone-picked" id="phonePicked" data-action="phone-open">
+                <span class="phone-cb" id="phoneCb" role="checkbox" aria-checked="false" tabindex="0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="phone-num" id="phoneNum">+7 (900) 123-45-67</span>
+                <span class="edit-hint">
+                  <span class="text-only">Выбрать</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+
+              <div id="phonePop" hidden>
+                <div class="scrim" data-action="phone-close"></div>
+                <div class="popover">
+                  <div class="sheet-handle" aria-hidden="true"></div>
+                  <button type="button" class="sheet-close" data-action="phone-close" aria-label="Закрыть">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </button>
+                  <button type="button" class="sheet-back" data-action="phone-cancel" aria-label="Назад">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <div id="phoneListWrap">
+                    <div id="phoneList"></div>
+                    <div class="list-foot">
+                      <button type="button" class="btn-add" data-action="phone-add"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C8.26522 1 8.51957 1.10536 8.70711 1.29289C8.89464 1.48043 9 1.73478 9 2V7H14C14.2652 7 14.5196 7.10536 14.7071 7.29289C14.8946 7.48043 15 7.73478 15 8C15 8.26522 14.8946 8.51957 14.7071 8.70711C14.5196 8.89464 14.2652 9 14 9H9V14C9 14.2652 8.89464 14.5196 8.70711 14.7071C8.51957 14.8946 8.26522 15 8 15C7.73478 15 7.48043 14.8946 7.29289 14.7071C7.10536 14.5196 7 14.2652 7 14V9H2C1.73478 9 1.48043 8.89464 1.29289 8.70711C1.10536 8.51957 1 8.26522 1 8C1 7.73478 1.10536 7.48043 1.29289 7.29289C1.48043 7.10536 1.73478 7 2 7H7V2C7 1.73478 7.10536 1.48043 7.29289 1.29289C7.48043 1.10536 7.73478 1 8 1Z" fill="currentColor"/></svg> Добавить телефон</button>
+                    </div>
+                  </div>
+                  <div class="pop-form" id="phoneForm" hidden>
+                    <div class="pop-field">
+                      <input type="tel" class="field field--phone" id="phoneInput" placeholder="+7 (___) ___-__-__">
+                      <button type="button" class="input-clear" id="phoneClear" aria-label="Удалить номер" hidden>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M19.7293 21.246C21.8289 21.246 22.8836 20.2114 22.8836 18.1324V5.86711C22.8836 3.78811 21.8289 2.75354 19.7293 2.75354H11.0006C9.82542 2.75354 8.81057 3.05483 7.98728 3.92868L2.07085 10.0765C1.41814 10.7494 1.11685 11.352 1.11685 11.985C1.11685 12.6077 1.40828 13.2205 2.07085 13.8934L7.99714 20.0104C8.83114 20.8744 9.83571 21.2361 11.0109 21.2361L19.7293 21.246ZM19.7096 19.629H10.98C10.2167 19.629 9.74442 19.4481 9.21214 18.9055L3.32657 12.8284C2.98499 12.477 2.88471 12.2361 2.88471 11.985C2.88471 11.7235 2.99485 11.4827 3.32614 11.1313L9.20271 5.03397C9.72514 4.50168 10.2171 4.37097 10.9706 4.37097H19.7091C20.7137 4.37097 21.2661 4.90325 21.2661 5.94811V18.0514C21.2661 19.0963 20.7137 19.6285 19.7091 19.6285M17.1879 16.113C17.6194 16.113 17.9713 15.7714 17.9713 15.3493C17.9713 15.1384 17.8809 14.9575 17.73 14.8071L14.9177 11.9845L17.73 9.17183C17.8809 9.0214 17.9713 8.83025 17.9713 8.62968C17.9713 8.19768 17.6096 7.83597 17.1879 7.83597C16.9864 7.83597 16.7957 7.9264 16.6453 8.07725L13.8326 10.8998L11.0104 8.07725C10.8596 7.9264 10.6787 7.83597 10.4679 7.83597C10.0461 7.83597 9.68442 8.19768 9.68442 8.62968C9.68442 8.83025 9.77442 9.0214 9.92528 9.17183L12.738 11.9845L9.92528 14.8071C9.77485 14.9575 9.68442 15.1384 9.68442 15.3493C9.68442 15.7714 10.0359 16.113 10.4679 16.113C10.689 16.113 10.8596 16.0427 11.0001 15.9021L13.833 13.0594L16.6551 15.9021C16.7957 16.0427 16.9766 16.113 17.1879 16.113Z" fill="currentColor"/></svg>
+                      </button>
+                    </div>
+                    <div class="pop-form-actions">
+                      <button type="button" class="btn-primary btn-primary--inline" id="phoneSave">Сохранить</button>
+                      <button type="button" class="btn-del-wide" id="phoneDelete" aria-label="Удалить телефон" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13.5 2.7998C13.9358 2.7998 14.3932 2.95286 14.7197 3.28027C15.0483 3.60828 15.2002 4.06447 15.2002 4.5V5.0498H20.4502V6.9502H19.6094L18.1992 20.3418L18.1289 21.0205L18.1094 21.2002H5.89062L5.87109 21.0205L5.80078 20.3418L4.39062 6.9502H3.5498V5.0498H8.7998V4.5C8.7998 4.06322 8.95405 3.60754 9.28027 3.28125C9.60811 2.95342 10.064 2.7998 10.5 2.7998H13.5ZM7.60938 19.2998H16.3906L17.6836 6.9502H6.31641L7.60938 19.2998ZM10.7002 5.0498H13.2998V4.25388H10.7002V5.0498Z" fill="currentColor"/></svg><span class="btn-del-label">Удалить</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <div class="notice" id="phoneNotice" hidden>
+                <img class="notice-icon" src="assets/alert-check.svg" alt="" width="24" height="24">
+                <span class="notice-text">Подтвердите телефон для согласования заказа!</span>
+                <button type="button" class="notice-close" data-action="notice-close" aria-label="Закрыть">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1. Способ доставки -->
+          <div class="sec is-open" id="secDelivery" data-sec="delivery">
+            <div class="sec-head" data-toggle="delivery">
+              <span class="sec-title"><span class="sec-num">1</span>. Способ доставки <span class="req">*</span></span>
+              <span class="sec-value"></span>
+              <span class="sec-chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="sec-body">
+              <div class="delivery-grid">
+                <div class="opt opt--icon is-on" data-delivery="courier">
+                  <img class="opt-icon" src="assets/delivery-courier.png" alt="">
+                  <span class="opt-check" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="opt-text">
+                    <span class="opt-title">Доставка (Москва/МО)</span>
+                    <span class="opt-sub">В радиусе до 60 км от МКАД</span>
+                  </span>
+                </div>
+                <div class="opt opt--icon" data-delivery="pickup">
+                  <img class="opt-icon" src="assets/delivery-pickup.png" alt="">
+                  <span class="opt-check" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="opt-text">
+                    <span class="opt-title">Самовывоз</span>
+                    <span class="opt-sub">С наших складов</span>
+                  </span>
+                </div>
+                <div class="opt opt--icon" data-delivery="regional">
+                  <img class="opt-icon" src="assets/delivery-regional.png" alt="">
+                  <span class="opt-check" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="opt-text">
+                    <span class="opt-title">Региональная Доставка</span>
+                    <span class="opt-sub">Транспортной компанией<br>по всей России</span>
+                  </span>
+                </div>
+              </div>
+              <p class="sec-note" id="deliveryNote">Мы доставим ваш заказ прямо до дверей салона или дома. Наши курьеры обеспечивают бережную транспортировку профессиональной продукции и расходных материалов</p>
+              <div id="regionalBlock" hidden>
+                <p class="sec-note sec-note--muted">После оформления заказа наш менеджер свяжется с вами, чтобы подобрать оптимальную транспортную компанию, рассчитать примерную стоимость и сроки доставки.</p>
+                <p class="sec-note sec-note--muted">Минимальная сумма заказа для региональной доставки 10 000 рублей</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Пункты самовывоза -->
+          <div class="sec is-open" id="secPickup" data-sec="pickup" hidden>
+            <div class="sec-head" data-toggle="pickup">
+              <span class="sec-title"><span class="sec-num">2</span>. Пункты самовывоза</span>
+              <span class="sec-value"></span>
+              <span class="sec-chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="sec-body">
+              <div class="pickup-grid">
+                <div class="opt pickup is-on" data-pickup="w1">
+                  <span class="radio"><i></i></span>
+                  <div class="pickup-body">
+                    <span class="pickup-title">Пункт №1</span>
+                    <span class="pickup-line"><strong>Адрес:</strong> г. Москва, ул. Мельникова, д. 3, корп. 2 (вход со двора).</span>
+                    <span class="pickup-line"><strong>График:</strong> Понедельник – Пятница, с 09:00 до 19:00</span>
+                  </div>
+                </div>
+                <div class="opt pickup" data-pickup="w2">
+                  <span class="radio"><i></i></span>
+                  <div class="pickup-body">
+                    <span class="pickup-title">Пункт №2</span>
+                    <span class="pickup-line"><strong>Адрес:</strong> г. Москва, ул. Чертановская, д. 33, корп. 1.</span>
+                    <span class="pickup-line"><strong>График:</strong> Понедельник – Пятница, с 09:00 до 19:00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Адрес доставки -->
+          <div class="sec is-open" id="secAddress" data-sec="address">
+            <div class="sec-head" data-toggle="address">
+              <span class="sec-title"><span class="sec-num">2</span>. Адрес доставки <span class="req">*</span></span>
+              <span class="sec-value"></span>
+              <span class="sec-chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="sec-body">
+              <div class="rel" id="addrStd">
+                <div class="empty-slot empty-slot--sm" id="addrEmpty" hidden>
+                  <button type="button" class="btn-add" data-action="addr-add"><span class="plus">+</span> Добавить адрес доставки</button>
+                </div>
+
+                <div class="picked" id="addrPicked" data-action="addr-open">
+                  <span class="picked-text">
+                    <span class="picked-title" id="addrText">Москва, ул. Тверская, д. 12, кв. 45</span>
+                    <span class="picked-sub" id="addrSub">Адрес доставки по умолчанию</span>
+                  </span>
+                  <span class="picked-actions">
+                    <span class="text-only">Выбрать</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+
+                <div id="addrPop" hidden>
+                  <div class="scrim" data-action="addr-close"></div>
+                  <div class="popover">
+                    <div class="sheet-handle" aria-hidden="true"></div>
+                    <button type="button" class="sheet-close" data-action="addr-close" aria-label="Закрыть">
+                      <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </button>
+                    <div id="addrList"></div>
+                    <div class="list-foot">
+                      <button type="button" class="btn-add" data-action="addr-add"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C8.26522 1 8.51957 1.10536 8.70711 1.29289C8.89464 1.48043 9 1.73478 9 2V7H14C14.2652 7 14.5196 7.10536 14.7071 7.29289C14.8946 7.48043 15 7.73478 15 8C15 8.26522 14.8946 8.51957 14.7071 8.70711C14.5196 8.89464 14.2652 9 14 9H9V14C9 14.2652 8.89464 14.5196 8.70711 14.7071C8.51957 14.8946 8.26522 15 8 15C7.73478 15 7.48043 14.8946 7.29289 14.7071C7.10536 14.5196 7 14.2652 7 14V9H2C1.73478 9 1.48043 8.89464 1.29289 8.70711C1.10536 8.51957 1 8.26522 1 8C1 7.73478 1.10536 7.48043 1.29289 7.29289C1.48043 7.10536 1.73478 7 2 7H7V2C7 1.73478 7.10536 1.48043 7.29289 1.29289C7.48043 1.10536 7.73478 1 8 1Z" fill="currentColor"/></svg> Добавить адрес</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Условия доставки (региональная) -->
+          <!-- ВРЕМЕННО СКРЫТО: блок «Условия доставки»
+          <div class="sec is-open" id="secTerms" data-sec="terms" hidden>
+            <div class="sec-head" data-toggle="terms">
+              <span class="sec-title"><span class="sec-num">3</span>. Условия доставки</span>
+              <span class="sec-value"></span>
+              <span class="sec-chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="sec-body">
+              <div class="terms-toggles">
+                <button type="button" class="term-toggle" data-term="freeze">
+                  <span class="term-cb"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="term-toggle-label">Защита от замерзания при перевозке</span>
+                </button>
+                <button type="button" class="term-toggle" data-term="cargo">
+                  <span class="term-cb"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="term-toggle-label">Дополнительная защита груза</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          -->
+
+          <!-- 4. Тип оплаты -->
+          <div class="sec is-open" id="secPayment" data-sec="payment">
+            <div class="sec-head" data-toggle="payment">
+              <span class="sec-title"><span class="sec-num">4</span>. Тип оплаты</span>
+              <span class="sec-value"></span>
+              <span class="sec-chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="sec-body">
+              <div class="payment-grid" id="paymentGrid">
+                <div class="opt pay" data-payment="cash">
+                  <span class="radio"><i></i></span>
+                  <span class="opt-text">
+                    <span class="pay-label">Наличные</span>
+                    <span class="pay-note">При получении заказа</span>
+                  </span>
+                  <span class="pay-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6"/></svg></span>
+                </div>
+                <div class="opt pay" data-payment="card">
+                  <span class="radio"><i></i></span>
+                  <span class="opt-text">
+                    <span class="pay-label">Карта</span>
+                    <span class="pay-note">При получении заказа</span>
+                  </span>
+                  <span class="pay-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M2 10h20" stroke="currentColor" stroke-width="1.6"/></svg></span>
+                </div>
+                <div class="opt pay" data-payment="invoice">
+                  <span class="radio"><i></i></span>
+                  <span class="opt-text">
+                    <span class="pay-label">Безнал</span>
+                    <span class="pay-note">Выставим вам счёт</span>
+                  </span>
+                  <span class="pay-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Условия перевозки (только региональная) -->
+          <div class="sec is-open" id="secShipTerms" data-sec="shipterms" hidden>
+            <div class="sec-head" data-toggle="shipterms">
+              <span class="sec-title"><span class="sec-num">5</span>. Условия перевозки</span>
+              <span class="sec-value"></span>
+              <span class="sec-chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="sec-body">
+              <div class="terms-toggles">
+                <button type="button" class="term-toggle" data-term="crate">
+                  <span class="term-cb"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="term-toggle-label">Обрешётка</span>
+                </button>
+                <button type="button" class="term-toggle" data-term="pallet">
+                  <span class="term-cb"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="term-toggle-label">Паллетный борт</span>
+                </button>
+                <button type="button" class="term-toggle" data-term="thermal">
+                  <span class="term-cb"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="term-toggle-label">Тепловой режим</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Примечание -->
+          <div class="sec is-open" id="secNote" data-sec="note">
+            <div class="sec-head" data-toggle="note">
+              <span class="sec-title"><span class="sec-num">5</span>. Примечание</span>
+              <span class="sec-value"></span>
+              <span class="sec-chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="sec-body">
+              <textarea class="textarea" id="noteInput" placeholder="Введите текст..."></textarea>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Экран «Заказ принят» -->
+        <div class="success-card" id="screenSuccess" hidden>
+          <div class="success-photo">
+            <img class="success-photo-bg" src="assets/success-bg.jpg" alt="">
+            <img class="success-photo-person" src="assets/success-manager.png" alt="Менеджер IGRObeauty на связи">
+          </div>
+          <h2 class="success-title">Ваш заказ принят. Номер заказа — №14123.</h2>
+          <p class="success-lead">В ближайшее время с вами свяжется специалист для подтверждения и оплаты заказа.</p>
+        </div>
+
+      </div>
+
+      <!-- ПРАВАЯ КОЛОНКА — итоговая стоимость -->
+      <div class="col-summary">
+        <div class="summary-card">
+          <h2 class="summary-eyebrow">Итоговая стоимость</h2>
+          <div class="summary-badge-row" id="summaryBadge" hidden>
+            <span class="summary-badge">Оформлено</span>
+          </div>
+          <div class="summary-blocks">
+            <div class="summary-block">
+              <div class="summary-line"><span class="muted">Товары</span><span class="val">7 842,50 ₽</span></div>
+              <div class="summary-line"><span class="muted">Скидка по статусу (VIP)</span><span class="disc">−1 517,30 ₽</span></div>
+            </div>
+            <div class="divider"></div>
+            <div class="summary-block">
+              <div class="summary-line"><span class="muted">Уценённые товары</span><span class="val">3 715,80 ₽</span></div>
+              <div class="summary-line"><span class="muted">Уценка</span><span class="disc">−1 112,40 ₽</span></div>
+            </div>
+            <div class="divider"></div>
+            <div class="summary-block">
+              <div class="summary-line"><span class="muted">Товары по акции</span><span class="val">15 000 ₽</span></div>
+              <div class="summary-line"><span class="muted">Выгода</span><span class="disc">−2 806,45 ₽</span></div>
+            </div>
+          </div>
+          <div class="divider--strong"></div>
+          <div class="total-row">
+            <span class="total-label">Итого:</span>
+            <span class="total-value">21 122<span class="total-cents">,15</span> ₽</span>
+          </div>
+          <div class="savings">
+            <span class="savings-label">Общая экономия</span>
+            <span class="savings-value">5 436,15 ₽</span>
+          </div>
+          <div class="summary-actions" id="summaryActions">
+            <button type="button" class="btn-primary" id="submitBtn">Оформить заказ</button>
+            <button type="button" class="btn-green" id="backBtn">Назад в корзину</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- СОСТАВ ЗАКАЗА -->
+    <div class="goods" id="goods">
+      <div class="goods-group">
+        <div class="goods-head">
+          <span class="goods-title">Товары</span>
+          <span class="col-label col-label--qty">Кол-во</span>
+          <span class="col-label col-label--price">Цена</span>
+          <span class="col-label">Документы</span>
+        </div>
+        <div class="goods-card">
+
+          <div class="goods-row">
+            <div class="goods-main">
+              <div class="goods-thumb"><img src="assets/products/nirvel.png" alt=""></div>
+              <div class="goods-text">
+                <span class="goods-name">P-06 Nirvel Pastel ArtX 100 мл Краситель для волос, оттенок - Серебристый</span>
+                <span class="goods-meta">арт. IGRO-5750 • бренд Nirvel</span>
+              </div>
+            </div>
+            <div class="goods-cells">
+              <div class="qty-col"><span class="cell-label">Кол-во</span><span class="qty-val">4</span><span class="qty-unit">1 200 ₽/ед</span></div>
+              <div class="price-col"><span class="cell-label">Цена</span><span class="price-sum">4 800 ₽</span><span class="price-type">Цена мастера (VIP −20%)</span></div>
+              <div class="docs-col">
+                <span class="cell-label">Документы</span>
+                <div class="docs-list">
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="goods-row">
+            <div class="goods-main">
+              <div class="goods-thumb"><img src="assets/products/lashcolor.png" alt=""></div>
+              <div class="goods-text">
+                <span class="goods-name">Color Краска для бровей и ресниц 15 мл, оттенок натуральный КОРИЧНЕВЫЙ</span>
+                <span class="goods-meta">арт. IGRO-9145 • бренд Lash Color</span>
+              </div>
+            </div>
+            <div class="goods-cells">
+              <div class="qty-col"><span class="cell-label">Кол-во</span><span class="qty-val">4</span><span class="qty-unit">160 ₽/ед</span></div>
+              <div class="price-col"><span class="cell-label">Цена</span><span class="price-sum">640 ₽</span><span class="price-type">Цена мастера (VIP −20%)</span></div>
+              <div class="docs-col">
+                <span class="cell-label">Документы</span>
+                <div class="docs-list">
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="goods-row">
+            <div class="goods-main">
+              <div class="goods-thumb"><img src="assets/products/refectocil.png" alt=""></div>
+              <div class="goods-text">
+                <span class="goods-name">Краситель для окрашивания бровей и ресниц RefectoCil № 3.1, светло-коричневый</span>
+                <span class="goods-meta">арт. IGRO-9146 • бренд RefectoCil</span>
+              </div>
+            </div>
+            <div class="goods-cells">
+              <div class="qty-col"><span class="cell-label">Кол-во</span><span class="qty-val">1</span><span class="qty-unit">850 ₽/ед</span></div>
+              <div class="price-col"><span class="cell-label">Цена</span><span class="price-sum">850 ₽</span><span class="price-type">Цена мастера (VIP −15%)</span></div>
+              <div class="docs-col">
+                <span class="cell-label">Документы</span>
+                <div class="docs-list">
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="goods-row">
+            <div class="goods-main">
+              <div class="goods-thumb"><img src="assets/products/soleo.png" alt=""></div>
+              <div class="goods-text">
+                <span class="goods-name">Ускоритель загара Soleo Lolli Pop, 150 мл</span>
+                <span class="goods-meta">арт. WBAST0005 • бренд Soleo</span>
+              </div>
+            </div>
+            <div class="goods-cells">
+              <div class="qty-col"><span class="cell-label">Кол-во</span><span class="qty-val">4</span><span class="qty-unit">310 ₽/ед</span></div>
+              <div class="price-col"><span class="cell-label">Цена</span><span class="price-sum">1 240 ₽</span><span class="price-type">Цена мастера (VIP −20%)</span></div>
+              <div class="docs-col">
+                <span class="cell-label">Документы</span>
+                <div class="docs-list">
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="goods-row">
+            <div class="goods-main">
+              <div class="goods-thumb"><img src="assets/products/levissime.png" alt=""></div>
+              <div class="goods-text">
+                <span class="goods-name">LeviSsime Крем увлажняющий ночной для лица Hydrage 50 мл</span>
+                <span class="goods-meta">арт. МТ4737145 • бренд Levissime</span>
+              </div>
+            </div>
+            <div class="goods-cells">
+              <div class="qty-col"><span class="cell-label">Кол-во</span><span class="qty-val">1</span><span class="qty-unit">1 360 ₽/ед</span></div>
+              <div class="price-col"><span class="cell-label">Цена</span><span class="price-sum">1 360 ₽</span><span class="price-type">Цена мастера (VIP −20%)</span></div>
+              <div class="docs-col">
+                <span class="cell-label">Документы</span>
+                <div class="docs-list">
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="goods-group">
+        <div class="goods-head">
+          <span class="goods-title">Уценка</span>
+          <span class="col-label col-label--qty">Кол-во</span>
+          <span class="col-label col-label--price">Цена</span>
+          <span class="col-label">Документы</span>
+        </div>
+        <div class="goods-card">
+
+          <div class="goods-row">
+            <div class="goods-main">
+              <div class="goods-thumb"><img src="assets/products/nirvel.png" alt=""></div>
+              <div class="goods-text">
+                <span class="goods-name">P-06 Nirvel Pastel ArtX 100 мл Краситель для волос, оттенок - Серебристый</span>
+                <span class="goods-meta">арт. IGRO-5750 • бренд Nirvel</span>
+              </div>
+            </div>
+            <div class="goods-cells">
+              <div class="qty-col"><span class="cell-label">Кол-во</span><span class="qty-val">4</span><span class="qty-unit">925 ₽/ед</span></div>
+              <div class="price-col"><span class="cell-label">Цена</span><span class="price-sum">3 700 ₽</span><span class="price-type">Уценка −30%</span></div>
+              <div class="docs-col">
+                <span class="cell-label">Документы</span>
+                <div class="docs-list">
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="goods-row">
+            <div class="goods-main">
+              <div class="goods-thumb"><img src="assets/products/iuver.png" alt=""></div>
+              <div class="goods-text">
+                <span class="goods-name">Сыворотка для секущихся кончиков, 100 мл</span>
+                <span class="goods-meta">арт. IGRO-2245 • бренд Concept</span>
+              </div>
+            </div>
+            <div class="goods-cells">
+              <div class="qty-col"><span class="cell-label">Кол-во</span><span class="qty-val">2</span><span class="qty-unit">392 ₽/ед</span></div>
+              <div class="price-col"><span class="cell-label">Цена</span><span class="price-sum">784 ₽</span><span class="price-type">Уценка −30%</span></div>
+              <div class="docs-col">
+                <span class="cell-label">Документы</span>
+                <div class="docs-list">
+                  <div class="doc-item"><a class="doc-link" href="#">RU 50.99.05.001.E.002505.09.18</a><span class="doc-ext">jpg</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Модальное окно адреса -->
+<div class="modal-scrim" id="addrModal" hidden>
+  <div class="modal-map-bg" id="modalMapBg" aria-hidden="true">
+    <span class="map-stub">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span class="map-stub-label">Карта</span>
+      <span class="map-stub-text">Здесь будет карта с меткой выбранного адреса</span>
+    </span>
+  </div>
+  <div class="modal">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <button type="button" class="sheet-close" data-action="addr-modal-close" aria-label="Закрыть">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <button type="button" class="sheet-back" data-action="addr-back" aria-label="Назад">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="modal-head">
+      <div class="modal-head-text">
+        <h3 class="modal-title" id="addrModalTitle">Новый адрес доставки</h3>
+        <span class="modal-sub" id="addrModalSub">Начните вводить адрес и выберите подходящий вариант из подсказок</span>
+      </div>
+      <button type="button" class="btn-close" data-action="addr-modal-close" aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="addrModalGrid">
+      <div class="modal-form">
+        <div class="addr-tabs" id="addrTabs" hidden>
+          <button type="button" class="addr-tab addr-tab--terminal" data-addr-tab="terminal">
+            <span class="radio"><i></i></span>
+            <span class="addr-tab-name">До терминала транспортной компании</span>
+            <span class="addr-tab-short">До<br class="tab-br"> терминала ТК</span>
+            <span class="addr-tab-check" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </button>
+          <button type="button" class="addr-tab addr-tab--address" data-addr-tab="address">
+            <span class="radio"><i></i></span>
+            <span class="addr-tab-name">До моего адреса</span>
+            <span class="addr-tab-short">До моего<br class="tab-br"> адреса</span>
+            <span class="addr-tab-check" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </button>
+        </div>
+        <div id="modalCity" class="modal-city-area" hidden>
+          <div class="city-picked city-picked--modal" id="modalCityPicked" hidden>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span class="city-picked-name" id="modalCityPickedName"></span>
+            <button type="button" class="city-back city-picked-clear" id="modalCityClear" aria-label="Сбросить город" title="Изменить город">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="city-field" id="modalCitySearchWrap">
+            <div class="city-search" id="modalCitySearchBox">
+              <svg class="city-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input type="text" class="city-search-input" id="modalCitySearch" placeholder="Найти город">
+              <button type="button" class="city-search-clear" id="modalCitySearchClear" aria-label="Очистить" hidden>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <div class="city-results" id="modalCityResults" hidden></div>
+            <div class="city-empty" id="modalCityEmpty" hidden>Ничего не найдено. Проверьте написание города.</div>
+          </div>
+          <button type="button" class="city-geo" id="modalCityGeo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 4L4 10.5l6.4 2.6a1 1 0 0 1 .5.5L13.5 20 20 4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            Определить местоположение
+          </button>
+        </div>
+        <div id="modalAddr" class="modal-addr-fields">
+          <button type="button" class="sheet-recap" id="addrRecap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span class="sheet-recap-text" id="addrRecapText"></span>
+            <span class="sheet-recap-edit">Изменить</span>
+          </button>
+          <div class="rel" id="addrFieldWrap">
+            <input type="text" class="field field--clearable" id="addrInput" placeholder=" ">
+            <span class="ph-req" aria-hidden="true">Город, улица, дом <b>*</b></span>
+            <button type="button" class="input-clear" id="addrClear" aria-label="Очистить адрес" hidden>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M19.7293 21.246C21.8289 21.246 22.8836 20.2114 22.8836 18.1324V5.86711C22.8836 3.78811 21.8289 2.75354 19.7293 2.75354H11.0006C9.82542 2.75354 8.81057 3.05483 7.98728 3.92868L2.07085 10.0765C1.41814 10.7494 1.11685 11.352 1.11685 11.985C1.11685 12.6077 1.40828 13.2205 2.07085 13.8934L7.99714 20.0104C8.83114 20.8744 9.83571 21.2361 11.0109 21.2361L19.7293 21.246ZM19.7096 19.629H10.98C10.2167 19.629 9.74442 19.4481 9.21214 18.9055L3.32657 12.8284C2.98499 12.477 2.88471 12.2361 2.88471 11.985C2.88471 11.7235 2.99485 11.4827 3.32614 11.1313L9.20271 5.03397C9.72514 4.50168 10.2171 4.37097 10.9706 4.37097H19.7091C20.7137 4.37097 21.2661 4.90325 21.2661 5.94811V18.0514C21.2661 19.0963 20.7137 19.6285 19.7091 19.6285M17.1879 16.113C17.6194 16.113 17.9713 15.7714 17.9713 15.3493C17.9713 15.1384 17.8809 14.9575 17.73 14.8071L14.9177 11.9845L17.73 9.17183C17.8809 9.0214 17.9713 8.83025 17.9713 8.62968C17.9713 8.19768 17.6096 7.83597 17.1879 7.83597C16.9864 7.83597 16.7957 7.9264 16.6453 8.07725L13.8326 10.8998L11.0104 8.07725C10.8596 7.9264 10.6787 7.83597 10.4679 7.83597C10.0461 7.83597 9.68442 8.19768 9.68442 8.62968C9.68442 8.83025 9.77442 9.0214 9.92528 9.17183L12.738 11.9845L9.92528 14.8071C9.77485 14.9575 9.68442 15.1384 9.68442 15.3493C9.68442 15.7714 10.0359 16.113 10.4679 16.113C10.689 16.113 10.8596 16.0427 11.0001 15.9021L13.833 13.0594L16.6551 15.9021C16.7957 16.0427 16.9766 16.113 17.1879 16.113Z" fill="currentColor"/></svg>
+            </button>
+            <div class="suggests" id="addrSuggests" hidden></div>
+          </div>
+          <div class="modal-form-row">
+            <div class="rel">
+              <input type="text" class="field" id="addrFlat" placeholder=" ">
+              <span class="ph-req" aria-hidden="true">Квартира / офис <b>*</b></span>
+            </div>
+            <input type="text" class="field" id="addrSalon" placeholder="Название салона">
+          </div>
+        </div>
+        <div class="rel" id="addrPhoneWrap">
+          <input type="tel" class="field field--phone" id="addrPhone" placeholder="Контактный телефон получателя">
+          <button type="button" class="input-clear" id="addrPhoneClear" aria-label="Очистить телефон" hidden>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M19.7293 21.246C21.8289 21.246 22.8836 20.2114 22.8836 18.1324V5.86711C22.8836 3.78811 21.8289 2.75354 19.7293 2.75354H11.0006C9.82542 2.75354 8.81057 3.05483 7.98728 3.92868L2.07085 10.0765C1.41814 10.7494 1.11685 11.352 1.11685 11.985C1.11685 12.6077 1.40828 13.2205 2.07085 13.8934L7.99714 20.0104C8.83114 20.8744 9.83571 21.2361 11.0109 21.2361L19.7293 21.246ZM19.7096 19.629H10.98C10.2167 19.629 9.74442 19.4481 9.21214 18.9055L3.32657 12.8284C2.98499 12.477 2.88471 12.2361 2.88471 11.985C2.88471 11.7235 2.99485 11.4827 3.32614 11.1313L9.20271 5.03397C9.72514 4.50168 10.2171 4.37097 10.9706 4.37097H19.7091C20.7137 4.37097 21.2661 4.90325 21.2661 5.94811V18.0514C21.2661 19.0963 20.7137 19.6285 19.7091 19.6285M17.1879 16.113C17.6194 16.113 17.9713 15.7714 17.9713 15.3493C17.9713 15.1384 17.8809 14.9575 17.73 14.8071L14.9177 11.9845L17.73 9.17183C17.8809 9.0214 17.9713 8.83025 17.9713 8.62968C17.9713 8.19768 17.6096 7.83597 17.1879 7.83597C16.9864 7.83597 16.7957 7.9264 16.6453 8.07725L13.8326 10.8998L11.0104 8.07725C10.8596 7.9264 10.6787 7.83597 10.4679 7.83597C10.0461 7.83597 9.68442 8.19768 9.68442 8.62968C9.68442 8.83025 9.77442 9.0214 9.92528 9.17183L12.738 11.9845L9.92528 14.8071C9.77485 14.9575 9.68442 15.1384 9.68442 15.3493C9.68442 15.7714 10.0359 16.113 10.4679 16.113C10.689 16.113 10.8596 16.0427 11.0001 15.9021L13.833 13.0594L16.6551 15.9021C16.7957 16.0427 16.9766 16.113 17.1879 16.113Z" fill="currentColor"/></svg>
+          </button>
+        </div>
+        <div class="field-group modal-comment">
+          <span class="comment-head" id="addrCommentToggle">Комментарий</span>
+          <div class="field-group comment-wrap" id="addrCommentWrap">
+            <textarea class="textarea textarea--sm" id="addrComment" placeholder="Комментарий менеджеру"></textarea>
+            <span class="field-hint" id="addrCommentHint">Укажите предпочтительную транспортную компанию, удобный терминал и так далее</span>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-primary btn-primary--wide btn-next" id="addrNext">Далее</button>
+          <button type="button" class="btn-primary btn-primary--wide" id="addrSave">Сохранить<span class="save-long">адрес</span></button>
+          <button type="button" class="btn-grey btn-grey--modal btn-back" id="addrBack" data-action="addr-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Назад
+          </button>
+          <button type="button" class="btn-grey btn-grey--modal btn-cancel" data-action="addr-modal-close">Отмена</button>
+          <button type="button" class="btn-del-wide" id="addrDelete" aria-label="Удалить адрес" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-del-label">Удалить</span></button>
+        </div>
+      </div>
+      <div class="modal-map" id="modalMap">
+        <span class="map-stub">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+          <span class="map-stub-label">Карта</span>
+          <span class="map-stub-text">Здесь будет карта с меткой выбранного адреса</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Список транспортных компаний -->
+<div class="modal-scrim modal-scrim--tk" id="tkModal" hidden>
+  <div class="tk-card">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <button type="button" class="sheet-close" data-action="tk-close" aria-label="Закрыть">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <div class="tk-head">
+      <div class="modal-head-text">
+        <h3 class="modal-title">Транспортные компании</h3>
+        <span class="modal-sub">Отправляем заказы любой из этих компаний — менеджер поможет выбрать оптимальную</span>
+      </div>
+      <button type="button" class="btn-close" data-action="tk-close" aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="tk-list">
+      <div class="tk-grid">
+        <span class="tk-item">СДЭК</span>
+        <span class="tk-item">Азимут</span>
+        <span class="tk-item">Артэк (Архангельск)</span>
+        <span class="tk-item">Байкал Сервис</span>
+        <span class="tk-item">Байт Транзит</span>
+        <span class="tk-item">Вера-1</span>
+        <span class="tk-item">Возовоз</span>
+        <span class="tk-item">Деловые Линии</span>
+        <span class="tk-item">ЖелдорАльянс</span>
+        <span class="tk-item">ЖелдорЭкспедиция</span>
+        <span class="tk-item">ЖелдорЭкспресс</span>
+        <span class="tk-item">Магистраль И</span>
+        <span class="tk-item">Мега Транс</span>
+        <span class="tk-item">Мейджик Транс</span>
+        <span class="tk-item">ПЭК</span>
+        <span class="tk-item">Скиф Карго</span>
+        <span class="tk-item">Т-Лайн</span>
+        <span class="tk-item">УТС</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Подтверждение удаления -->
+<div class="modal-scrim modal-scrim--confirm" id="confirmModal" hidden>
+  <div class="confirm-card">
+    <div class="confirm-text">
+      <span class="confirm-title" id="confirmTitle">Удалить адрес?</span>
+      <span class="confirm-sub" id="confirmSub"></span>
+    </div>
+    <div class="confirm-actions">
+      <button type="button" class="btn-danger" id="confirmDelete">Удалить</button>
+      <button type="button" class="btn-grey btn-grey--confirm" data-action="confirm-cancel">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var STUB = document.createElement("input");
+  var $ = function (id) { return document.getElementById(id) || STUB; };
+  var DEFAULT_PHONE = "+7 (900) 123-45-67";
+
+  var ICONS = {
+    cash: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6"/></svg>',
+    card: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M2 10h20" stroke="currentColor" stroke-width="1.6"/></svg>',
+    invoice: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    edit: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M16.293 2.29303C16.4805 2.10556 16.7348 2.00024 17 2.00024C17.2652 2.00024 17.5195 2.10556 17.707 2.29303L21.707 6.29303C21.8945 6.48056 21.9998 6.73487 21.9998 7.00003C21.9998 7.26519 21.8945 7.5195 21.707 7.70703L8.707 20.707C8.51951 20.8946 8.26519 21 8 21H4C3.73478 21 3.48043 20.8947 3.29289 20.7071C3.10536 20.5196 3 20.2652 3 20V16C3.00006 15.7348 3.10545 15.4805 3.293 15.293L13.293 5.29303L16.293 2.29303ZM14 7.41403L5 16.414V19H7.586L16.586 10L14 7.41403ZM18 8.58603L19.586 7.00003L17 4.41403L15.414 6.00003L18 8.58603Z" fill="currentColor"/></svg>',
+    trash: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 2.7998C13.9358 2.7998 14.3932 2.95286 14.7197 3.28027C15.0483 3.60828 15.2002 4.06447 15.2002 4.5V5.0498H20.4502V6.9502H19.6094L18.1992 20.3418L18.1289 21.0205L18.1094 21.2002H5.89062L5.87109 21.0205L5.80078 20.3418L4.39062 6.9502H3.5498V5.0498H8.7998V4.5C8.7998 4.06322 8.95405 3.60754 9.28027 3.28125C9.60811 2.95342 10.064 2.7998 10.5 2.7998H13.5ZM7.60938 19.2998H16.3906L17.6836 6.9502H6.31641L7.60938 19.2998ZM10.7002 5.0498H13.2998V4.25388H10.7002V5.0498Z" fill="currentColor"/></svg>',
+    lock: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    pin: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.2" stroke="currentColor" stroke-width="1.8"/></svg>'
+  };
+
+  var DELIVERY = {
+    courier: { title: "Доставка (Москва/МО)", note: "Мы доставим ваш заказ прямо до дверей салона или дома. Наши курьеры обеспечивают бережную транспортировку профессиональной продукции и расходных материалов" },
+    pickup: { title: "Самовывоз", note: "Заберите заказ самостоятельно в нашем магазине-складе." },
+    regional: { title: "Региональная Доставка", note: "Мы осуществляем доставку в любую точку страны через ведущие транспортные компании (СДЭК, ПЭК, Деловые Линии и др.) <button type=\"button\" class=\"link-tk\" data-action=\"tk-open\">Все транспортные компании</button>" }
+  };
+  var PAY_LABEL = { cash: "Наличные", card: "Карта", invoice: "Безнал" };
+  var TERM_LABEL = { freeze: "Защита от замерзания", cargo: "Доп. защита груза" };
+  var SHIP_LABEL = { crate: "Обрешётка", pallet: "Паллетный борт", thermal: "Тепловой режим" };
+
+  // Два независимых пула адресов: Москва/МО (курьер) и регионы (ТК)
+  var BASE_ADDR_LOCAL = [
+    { id: "m1", text: "Москва, ул. Мельникова, д. 3, корп. 2", sub: "Адрес доставки", kind: "address", flat: "кв. 214", salon: "Студия Люмьер", phone: "+7 (900) 123-45-67" },
+    { id: "m2", text: "Москва, ул. Тверская, д. 12", sub: "Адрес доставки", kind: "address", flat: "офис 7", salon: "Бьюти-бар Мята", phone: "+7 (978) 999-99-98" }
+  ];
+  var BASE_ADDR_REGIONAL = [
+    { id: "a1", text: "г. Глазов, терминал ТК", sub: "Доставка до терминала ТК", kind: "terminal", city: "Глазов", phone: "+7 (978) 999-99-98" },
+    { id: "a2", text: "г. Ижевск, терминал ТК", sub: "Доставка до терминала ТК", kind: "terminal", city: "Ижевск", phone: "+7 (963) 777-77-78" },
+    { id: "a3", text: "г. Глазов, ул. Кирова, д. 12", sub: "Доставка до адреса", kind: "address", flat: "кв. 45", salon: "Студия Люмьер", phone: "+7 (978) 999-99-98" }
+  ];
+  var BASE_PHONES = [
+    { id: "p1", text: DEFAULT_PHONE, sub: "Основной телефон" },
+    { id: "p2", text: "+7 (978) 999-99-98", sub: "Дополнительный телефон" },
+    { id: "p3", text: "+7 (963) 777-77-78", sub: "Дополнительный телефон" }
+  ];
+  var SUGGEST_BASE = [
+    "Москва, ул. Тверская, д. 12",
+    "Москва, ул. Мельникова, д. 3, корп. 2",
+    "Москва, Ленинский пр-т, д. 88",
+    "Москва, ул. Баумана, д. 5, корп. 1"
+  ];
+  var POPULAR_CITIES = [
+    "Москва", "Санкт-Петербург", "Новосибирск", "Краснодар", "Екатеринбург", "Казань", "Уфа",
+    "Нижний Новгород", "Челябинск", "Самара", "Ростов-на-Дону", "Омск", "Красноярск", "Воронеж",
+    "Пермь", "Волгоград", "Владивосток"
+  ];
+  var MORE_CITIES = [
+    "Глазов", "Тюмень", "Тольятти", "Ижевск", "Барнаул", "Ульяновск", "Иркутск", "Хабаровск",
+    "Ярославль", "Томск", "Оренбург", "Кемерово", "Рязань", "Тула", "Липецк", "Киров", "Чебоксары",
+    "Калининград", "Брянск", "Курск", "Иваново", "Магнитогорск", "Тверь", "Ставрополь", "Сочи"
+  ];
+
+  var S = {};
+
+  function clone(list) { return list.map(function (x) { return { id: x.id, text: x.text, sub: x.sub, salon: x.salon || "", phone: x.phone || "", kind: x.kind, city: x.city, flat: x.flat, comment: x.comment, locked: !!x.locked }; }); }
+
+  function setScenario(name) {
+    var isNew = name === "new";
+    S = {
+      scenario: name,
+      phoneStage: isNew ? "empty" : "confirmed",
+      phone: DEFAULT_PHONE,
+      phoneAgreed: isNew ? true : false,
+      delivery: isNew ? null : "courier",
+      pickupId: "w1",
+      addrPools: {
+        local: isNew ? [] : clone(BASE_ADDR_LOCAL),
+        regional: isNew ? [] : clone(BASE_ADDR_REGIONAL)
+      },
+      addrSelected: { local: isNew ? null : "m1", regional: isNew ? null : "a1" },
+      phones: isNew ? [] : clone(BASE_PHONES),
+      phoneId: isNew ? null : "p1",
+      payment: null,
+      open: { phone: true },
+      screen: "checkout",
+      addrEditId: null,
+      addrTab: "terminal",
+      modalCity: null,
+      modalCityAuto: false,
+      terms: { freeze: false, cargo: false, crate: false, pallet: false, thermal: false },
+      noticeDismissed: false,
+      confirm: null
+    };
+    // S.addresses / S.addressId работают с пулом активного способа доставки
+    Object.defineProperty(S, "addresses", {
+      get: function () { return this.addrPools[this.delivery === "regional" ? "regional" : "local"]; },
+      set: function (v) { this.addrPools[this.delivery === "regional" ? "regional" : "local"] = v; }
+    });
+    Object.defineProperty(S, "addressId", {
+      get: function () { return this.addrSelected[this.delivery === "regional" ? "regional" : "local"]; },
+      set: function (v) { this.addrSelected[this.delivery === "regional" ? "regional" : "local"] = v; }
+    });
+    $("noteInput").value = "";
+    closeAllPopovers();
+    render();
+  }
+
+  function closeAllPopovers() {
+    $("phonePop").hidden = true;
+    $("addrPop").hidden = true;
+  }
+
+  /* --- маска телефона --- */
+  function maskPhone(raw) {
+    var src = (raw || "").trim();
+    var hasPrefix = src.indexOf("+7") === 0;
+    var p = (hasPrefix ? src.slice(2) : src).replace(/\D/g, "");
+    if (!hasPrefix && p.length === 11 && (p[0] === "7" || p[0] === "8")) p = p.slice(1);
+    p = p.slice(0, 10);
+    if (!p.length) return "";
+    var out = "+7 (" + p.slice(0, 3);
+    if (p.length > 3) out += ") " + p.slice(3, 6);
+    if (p.length > 6) out += "-" + p.slice(6, 8);
+    if (p.length > 8) out += "-" + p.slice(8, 10);
+    return out;
+  }
+
+  function findRec(list, id) {
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return null;
+  }
+
+  // Подпись адреса: название салона, если задано, иначе стандартная
+  function addrSubLabel(a) {
+    if (!a) return "";
+    // В списке адресов показываем только телефон, без названия салона
+    return a.phone || "";
+  }
+
+
+
+  /* --- рендер --- */
+  function syncScrollLock() {
+    var isMobile = window.matchMedia("(max-width: 768px)").matches;
+    // Дропдауны выбора адреса/телефона блокируют скролл только на мобилке
+    var ids = isMobile
+      ? ["addrModal", "addrPop", "phonePop", "confirmModal", "tkModal"]
+      : ["addrModal", "confirmModal", "tkModal"];
+    var open = ids.some(function (id) {
+      var el = document.getElementById(id);
+      return el && !el.hidden;
+    });
+    document.body.classList.toggle("no-scroll", open);
+  }
+  document.addEventListener("click", function () { setTimeout(syncScrollLock, 0); });
+
+  function render() {
+    var isSuccess = S.screen === "success";
+    var isPickup = S.delivery === "pickup";
+    var isRegional = S.delivery === "regional";
+    syncScrollLock();
+
+    document.body.classList.toggle("is-success", isSuccess);
+    $("page").classList.toggle("is-success", isSuccess);
+    $("pageTitle").textContent = isSuccess ? "Заказ принят" : "Оформление заказа";
+    $("screenCheckout").hidden = isSuccess;
+    $("screenSuccess").hidden = !isSuccess;
+    $("goods").hidden = isSuccess;
+    $("summaryActions").hidden = isSuccess;
+    $("summaryBadge").hidden = !isSuccess;
+
+    // степпер
+    var steps = document.querySelectorAll("#stepper .step");
+    var active = isSuccess ? 2 : 1;
+    for (var i = 0; i < steps.length; i++) {
+      steps[i].classList.toggle("is-done", i < active);
+      steps[i].classList.toggle("is-current", i === active);
+    }
+
+    // сценарий
+    $("scNew").classList.toggle("is-active", S.scenario === "new");
+    $("scRet").classList.toggle("is-active", S.scenario !== "new");
+
+    // телефон согласования
+    var confirmed = S.phoneStage === "confirmed";
+    $("phoneEmpty").hidden = confirmed;
+    $("phonePicked").hidden = !confirmed;
+    var selPhone = findRec(S.phones, S.phoneId);
+    if (selPhone) S.phone = selPhone.text;
+    $("phoneNum").textContent = S.phone;
+    $("phoneCb").classList.toggle("is-on", !!S.phoneAgreed);
+    $("phoneCb").setAttribute("aria-checked", S.phoneAgreed ? "true" : "false");
+
+    // доставка
+    var opts = document.querySelectorAll("[data-delivery]");
+    for (var d = 0; d < opts.length; d++) opts[d].classList.toggle("is-on", opts[d].getAttribute("data-delivery") === S.delivery);
+    $("deliveryNote").hidden = !S.delivery;
+    if (S.delivery) $("deliveryNote").innerHTML = DELIVERY[S.delivery].note;
+    $("regionalBlock").hidden = !isRegional;
+
+    var picks = document.querySelectorAll("[data-pickup]");
+    for (var k = 0; k < picks.length; k++) picks[k].classList.toggle("is-on", picks[k].getAttribute("data-pickup") === S.pickupId);
+
+    // видимость разделов
+    $("secPickup").hidden = !isPickup;
+    $("secAddress").hidden = isPickup;
+    $("secPayment").hidden = isPickup;
+    $("secNote").hidden = isPickup;
+
+    // адрес
+    var addr = findRec(S.addresses, S.addressId);
+    $("addrEmpty").hidden = !!addr;
+    $("addrPicked").hidden = !addr;
+    if (addr) { $("addrText").textContent = addr.text; $("addrSub").textContent = addrSubLabel(addr); }
+
+    // условия доставки (только региональная)
+    if ($("secTerms")) $("secTerms").hidden = !isRegional;
+    if ($("secShipTerms")) $("secShipTerms").hidden = !isRegional;
+    var termBtns = document.querySelectorAll("[data-term]");
+    for (var tb = 0; tb < termBtns.length; tb++) {
+      var grp = termBtns[tb].getAttribute("data-term");
+      termBtns[tb].classList.toggle("is-on", !!S.terms[grp]);
+    }
+
+    // оплата
+    var payment = isRegional ? "invoice" : S.payment;
+    var pays = document.querySelectorAll("[data-payment]");
+    for (var p = 0; p < pays.length; p++) {
+      var id = pays[p].getAttribute("data-payment");
+      pays[p].hidden = isRegional && id !== "invoice";
+      pays[p].classList.toggle("is-on", id === payment);
+    }
+    $("paymentGrid").classList.toggle("is-single", isRegional);
+
+    // раскрытие + нумерация + значения
+    var secs = document.querySelectorAll("[data-sec]");
+    var num = 1;
+    for (var s = 0; s < secs.length; s++) {
+      var sec = secs[s];
+      if (sec.hidden) continue;
+      var key = sec.getAttribute("data-sec");
+      var numEl = sec.querySelector(".sec-num");
+      if (numEl) { num++; numEl.textContent = String(num); }
+      sec.classList.toggle("is-open", !!S.open[key]);
+      var value = "";
+      if (key === "delivery") value = S.delivery ? DELIVERY[S.delivery].title : "";
+      if (key === "address") value = addr ? addr.text : "";
+      if (key === "terms") { var on = []; if (S.terms.freeze) on.push(TERM_LABEL.freeze); if (S.terms.cargo) on.push(TERM_LABEL.cargo); value = on.join(", "); }
+      if (key === "shipterms") { var so = []; if (S.terms.crate) so.push(SHIP_LABEL.crate); if (S.terms.pallet) so.push(SHIP_LABEL.pallet); if (S.terms.thermal) so.push(SHIP_LABEL.thermal); value = so.join(", "); }
+      if (key === "payment" && payment) value = PAY_LABEL[payment] + ICONS[payment];
+      sec.querySelector(".sec-value").innerHTML = value;
+    }
+    $("secPhone").classList.toggle("is-open", !!S.open.phone);
+    if (confirmed && S.phoneAgreed) S.noticeDismissed = true;
+    $("phoneNotice").hidden = S.scenario === "new" || (confirmed && S.phoneAgreed) || S.noticeDismissed;
+
+    // списки в поповерах
+    renderAddrList();
+    renderPhoneList();
+
+    // итог
+    var addrReady = isPickup || !!S.addressId;
+    var canSubmit = confirmed && S.phoneAgreed && addrReady;
+    $("submitBtn").disabled = !canSubmit;
+    $("warnBlock").hidden = !(isSuccess || (confirmed && addrReady));
+  }
+
+  function renderModalCityChips() {
+    $("modalCityChips").innerHTML = POPULAR_CITIES.map(function (c) {
+      return '<button type="button" class="city-chip' + (c === S.modalCity ? " is-on" : "") + '" data-city="' + c + '">' + c + '</button>';
+    }).join("");
+  }
+
+  function renderModalCitySearch() {
+    var picked = !!S.modalCity;
+    var q = $("modalCitySearch").value.trim();
+    var hasQ = q.length > 0;
+    // Город выбран — показываем блок адреса; поиск вернётся после сброса (крестик)
+    $("modalCityPicked").hidden = !picked;
+    $("modalCitySearchWrap").hidden = picked;
+    $("modalCityGeo").hidden = picked;
+    if (picked || !hasQ) { $("modalCityResults").hidden = true; $("modalCityEmpty").hidden = true; return; }
+    var lower = q.toLowerCase();
+    var all = POPULAR_CITIES.concat(MORE_CITIES);
+    var seen = {};
+    var matches = all.filter(function (c) {
+      var key = c.toLowerCase();
+      if (seen[key] || key.indexOf(lower) === -1) return false;
+      seen[key] = 1; return true;
+    });
+    var box = $("modalCityResults");
+    if (!matches.length) { box.hidden = true; $("modalCityEmpty").hidden = false; return; }
+    $("modalCityEmpty").hidden = true;
+    box.hidden = false;
+    box.innerHTML = matches.map(function (c) {
+      var i = c.toLowerCase().indexOf(lower);
+      var html = c.slice(0, i) + "<b>" + c.slice(i, i + q.length) + "</b>" + c.slice(i + q.length);
+      return '<button type="button" class="city-result" data-city="' + c + '">' + html + '</button>';
+    }).join("");
+  }
+
+  function setModalCity(name, auto) {
+    S.modalCity = name;
+    S.modalCityAuto = !!auto;
+    $("modalCitySearch").value = "";
+    $("modalCitySearchClear").hidden = true;
+    renderModalCity();
+  }
+
+  function renderModalCity() {
+    if (S.modalCity) { $("modalCityPickedName").textContent = "г. " + S.modalCity; }
+    renderModalCitySearch();
+    updateAddrSave();
+  }
+
+  $("modalCitySearch").addEventListener("input", function () {
+    $("modalCitySearchClear").hidden = !this.value;
+    renderModalCitySearch();
+  });
+  $("modalCitySearchClear").addEventListener("click", function () {
+    $("modalCitySearch").value = "";
+    this.hidden = true;
+    renderModalCitySearch();
+    $("modalCitySearch").focus();
+  });
+  $("modalCityGeo").addEventListener("click", function () { setModalCity("Москва", true); });
+  $("modalCityClear").addEventListener("click", function () {
+    S.modalCity = null; S.modalCityAuto = false;
+    renderModalCity();
+    $("modalCitySearch").focus();
+  });
+
+  // Кнопка «Сохранить адрес» активна только при заполненном обязательном поле
+  function updateAddrSave() {
+    var needCity = S.delivery === "regional" && S.addrTab === "terminal";
+    var empty = needCity ? !S.modalCity : !$("addrInput").value.trim();
+    $("addrSave").disabled = empty;
+    $("addrNext").disabled = empty;
+  }
+
+  // Мобильный лист в два шага: 1 — карта + адрес, 2 — остальные поля
+  function setSheetStep(n) {
+    var scrim = $("addrModal");
+    var mobile = window.matchMedia("(max-width: 767px)").matches;
+    var withMap = !$("modalMapBg").hidden;
+    var step = mobile && withMap ? n : 0;
+    scrim.classList.toggle("is-step1", step === 1);
+    scrim.classList.toggle("is-step2", step === 2);
+    if (step === 2) $("addrRecapText").textContent = $("addrInput").value.trim() || "Адрес не указан";
+  }
+  $("addrNext").addEventListener("click", function () {
+    setSheetStep(2);
+    $("addrSuggests").hidden = true;
+    fitSheetHeight(true);
+  });
+  $("addrRecap").addEventListener("click", function () {
+    setSheetStep(1);
+    fitSheetHeight(true);
+    $("addrInput").focus();
+  });
+
+  // Переключение табов в модалке (терминал / свой адрес)
+  function isMobileSheet() { return window.matchMedia("(max-width: 767px)").matches; }
+  function fitSheetHeight(animate) {
+    var sheet = $("addrModal").querySelector(".modal");
+    if (!sheet || $("addrModal").hidden) return;
+    if (!isMobileSheet()) { sheet.style.height = ""; sheet.style.transition = ""; return; }
+    var max = window.innerHeight * 0.88;
+    var from = sheet.getBoundingClientRect().height;
+    sheet.style.transition = "none";
+    sheet.style.height = "auto";
+    var to = Math.min(sheet.scrollHeight, max);
+    if (!animate) { sheet.style.height = to + "px"; return; }
+    var body = sheet.querySelector(".modal-body");
+    var prevOverflow = body ? body.style.overflowY : null;
+    if (body) body.style.overflowY = "hidden";
+    sheet.style.height = from + "px";
+    void sheet.offsetHeight;
+    sheet.style.transition = "height 0.3s cubic-bezier(0.25,0.46,0.45,0.94)";
+    sheet.style.height = to + "px";
+    if (body) setTimeout(function () { body.style.overflowY = prevOverflow || ""; }, 320);
+  }
+  function applyCommentPlaceholder() {
+    var isTerminal = S.delivery === "regional" && S.addrTab === "terminal";
+    if (!isTerminal) return;
+    $("addrComment").placeholder = isMobileSheet()
+      ? "Комментарий (Укажите транспортную компанию, удобный терминал и т.д.)"
+      : "Комментарий менеджеру";
+  }
+
+  function setAddrTab(tab) {
+    S.addrTab = tab;
+    var isTerminal = tab === "terminal";
+    var tabs = document.querySelectorAll("[data-addr-tab]");
+    for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle("is-on", tabs[i].getAttribute("data-addr-tab") === tab);
+    $("modalCity").hidden = !isTerminal;
+    $("modalAddr").hidden = isTerminal;
+    $("modalMap").hidden = isTerminal;
+    $("modalMapBg").hidden = isTerminal;
+    $("addrModal").querySelector(".modal").classList.toggle("modal--wide", !isTerminal);
+    $("addrCommentHint").hidden = !isTerminal;
+    $("addrComment").placeholder = isTerminal
+      ? "Комментарий менеджеру"
+      : "Комментарий курьеру. Например, вход со двора";
+    if (isTerminal) renderModalCity();
+    setSheetStep(1);
+    updateAddrSave();
+    applyCommentPlaceholder();
+    fitSheetHeight(true);
+  }
+
+  function renderAddrList() {
+    var host = $("addrList");
+    host.innerHTML = S.addresses.map(function (a) {
+      return '<div class="list-row' + (a.id === S.addressId ? " is-on" : "") + '" data-addr-select="' + a.id + '">' +
+        '<span class="radio"><i></i></span>' +
+        '<span class="row-text"><span class="row-title">' + a.text + '</span><span class="row-sub">' + addrSubLabel(a) + '</span></span>' +
+        '<span class="row-actions">' +
+          '<button type="button" class="btn-edit btn-edit--icon" data-addr-edit="' + a.id + '">' + ICONS.edit + '<span class="btn-edit-label">Редактировать</span></button>' +
+        '</span>' +
+      '</div>';
+    }).join("");
+    var rows = host.querySelectorAll(".list-row");
+    for (var i = 0; i < rows.length; i++) if (rows[i].classList.contains("is-on")) { rows[i].querySelector(".radio").classList.add("is-on"); }
+  }
+
+  function renderPhoneList() {
+    var host = $("phoneList");
+    host.innerHTML = S.phones.map(function (p) {
+      return '<div class="list-row' + (p.id === S.phoneId ? " is-on" : "") + '" data-phone-select="' + p.id + '">' +
+        '<span class="radio"><i></i></span>' +
+        '<span class="row-text"><span class="row-title row-title--phone">' + p.text + '</span></span>' +
+        '<span class="row-actions">' +
+          '<button type="button" class="btn-edit btn-edit--phone" data-phone-edit="' + p.id + '">' + ICONS.edit + '<span class="btn-edit-label">Редактировать</span></button>' +
+        '</span>' +
+      '</div>';
+    }).join("");
+  }
+
+  /* --- телефон согласования: список + форма --- */
+  var phoneEditId = null;
+  function showPhoneList() {
+    $("phoneForm").hidden = true;
+    $("phoneListWrap").hidden = false;
+  }
+  function openPhoneForm(id) {
+    phoneEditId = id || "new";
+    var rec = id ? findRec(S.phones, id) : null;
+    $("phoneInput").value = rec ? rec.text : "";
+    $("phoneClear").hidden = !$("phoneInput").value;
+    $("phoneDelete").hidden = phoneEditId === "new";
+    $("phoneListWrap").hidden = true;
+    $("phoneForm").hidden = false;
+    $("phonePop").hidden = false;
+    $("phoneInput").focus();
+  }
+  function openPhonePop() {
+    closeAllPopovers();
+    if (S.phones.length) { showPhoneList(); $("phonePop").hidden = false; }
+    else openPhoneForm(null);
+  }
+  function confirmPhone(id) {
+    S.phoneId = id;
+    S.phoneStage = "confirmed";
+    S.phoneAgreed = true;
+    S.open.delivery = true;
+    if (S.delivery) { S.open.pickup = true; S.open.address = true; }
+    if (S.addressId || S.delivery === "pickup") { S.open.payment = true; S.open.shipterms = true; S.open.note = true; }
+  }
+  $("phoneInput").addEventListener("input", function () {
+    this.value = maskPhone(this.value);
+    $("phoneClear").hidden = !this.value;
+  });
+  $("phoneClear").addEventListener("click", function () {
+    $("phoneInput").value = "";
+    this.hidden = true;
+    $("phoneInput").focus();
+  });
+  $("phoneSave").addEventListener("click", function () {
+    var v = $("phoneInput").value.trim();
+    if (v) {
+      if (phoneEditId === "new") {
+        var id = "p" + Date.now();
+        S.phones.push({ id: id, text: v, sub: S.phones.length ? "Дополнительный телефон" : "Основной телефон" });
+        confirmPhone(id);
+      } else {
+        var rec = findRec(S.phones, phoneEditId);
+        if (rec) rec.text = v;
+        confirmPhone(phoneEditId);
+      }
+    }
+    phoneEditId = null;
+    $("phonePop").hidden = true;
+    showPhoneList();
+    render();
+  });
+  $("phoneCb").addEventListener("click", function (e) {
+    e.stopPropagation();
+    S.phoneAgreed = !S.phoneAgreed;
+    var openAll = S.phoneStage === "confirmed" && S.phoneAgreed;
+    S.open.delivery = openAll;
+    S.open.pickup = openAll && !!S.delivery; S.open.address = openAll && !!S.delivery;
+    S.open.payment = openAll && !!S.delivery; S.open.shipterms = openAll && !!S.delivery; S.open.note = openAll && !!S.delivery;
+    render();
+  });
+
+  /* --- адрес: модальное окно --- */
+  function openAddrModal(id) {
+    S.addrEditId = id || "new";
+    var rec = id ? findRec(S.addresses, id) : null;
+    var isRegional = S.delivery === "regional";
+    $("addrModalTitle").textContent = rec ? "Адрес доставки" : "Новый адрес доставки";
+    $("addrModalSub").textContent = isRegional
+      ? "Выберите способ и укажите город или адрес доставки"
+      : "Начните вводить адрес и выберите подходящий вариант из подсказок";
+
+    $("addrTabs").hidden = !isRegional;
+    $("addrInput").value = rec ? rec.text : "";
+    $("addrClear").hidden = !$("addrInput").value;
+    $("addrFlat").value = rec && rec.flat ? rec.flat : "";
+    $("addrFlat").classList.remove("field--error");
+    $("addrSalon").value = rec && rec.salon ? rec.salon : "";
+    $("addrComment").value = rec && rec.comment ? rec.comment : "";
+    $("addrPhone").value = rec && rec.phone ? rec.phone : "";
+    $("addrPhoneClear").hidden = !$("addrPhone").value;
+    $("addrSuggests").hidden = true;
+    S.modalCity = rec && rec.kind === "terminal" ? rec.city : null;
+    S.modalCityAuto = false;
+    $("modalCitySearch").value = "";
+    $("modalCitySearchClear").hidden = true;
+
+    if (isRegional) {
+      setAddrTab(rec ? (rec.kind === "terminal" ? "terminal" : "address") : "terminal");
+    } else {
+      // Москва — только адрес, без табов
+      S.addrTab = "address";
+      $("modalCity").hidden = true;
+      $("modalAddr").hidden = false;
+      $("modalMap").hidden = false;
+      $("modalMapBg").hidden = false;
+      $("addrModal").querySelector(".modal").classList.add("modal--wide");
+      $("addrCommentHint").hidden = true;
+      $("addrComment").placeholder = "Комментарий курьеру. Например, вход со двора";
+    }
+    $("addrDelete").hidden = !rec;
+    $("addrModal").classList.toggle("has-list", S.addresses.length > 0);
+    updateAddrSave();
+    applyCommentPlaceholder();
+    setCommentOpen(!!$("addrComment").value.trim());
+    setSheetStep(1);
+    $("addrModal").hidden = false;
+    $("addrPop").hidden = true;
+    // лист всегда открывается сверху
+    var body = $("addrModal").querySelector(".modal-body");
+    if (body) body.scrollTop = 0;
+    var sheet = $("addrModal").querySelector(".modal");
+    if (sheet) { sheet.scrollTop = 0; sheet.style.height = ""; sheet.style.transition = ""; }
+    requestAnimationFrame(function () { fitSheetHeight(false); });
+    // На мобильных не открываем клавиатуру сразу — лист сначала выезжает
+    if (window.matchMedia("(min-width: 768px)").matches && (!isRegional || S.addrTab === "address")) $("addrInput").focus();
+  }
+  function closeAddrModal() { $("addrModal").hidden = true; S.addrEditId = null; $("addrFlat").classList.remove("field--error"); }
+  function setCommentOpen(open) {
+    $("addrCommentWrap").hidden = false;
+  }
+  window.matchMedia("(max-width: 767px)").addEventListener("change", function () {
+    setCommentOpen($("addrCommentToggle").getAttribute("aria-expanded") === "true" || !!$("addrComment").value.trim());
+    setSheetStep($("addrModal").classList.contains("is-step2") ? 2 : 1);
+  });
+
+  $("addrFlat").addEventListener("input", function () { this.classList.remove("field--error"); });
+  $("addrPhone").addEventListener("input", function () { this.value = maskPhone(this.value); $("addrPhoneClear").hidden = !this.value; });
+  $("addrPhoneClear").addEventListener("click", function () {
+    var inp = $("addrPhone");
+    inp.value = "";
+    this.hidden = true;
+    inp.focus();
+  });
+  $("addrInput").addEventListener("input", function () {
+    updateAddrSave();
+    $("addrClear").hidden = !this.value;
+    var v = this.value.trim();
+    var box = $("addrSuggests");
+    if (v.length < 2) { box.hidden = true; return; }
+    box.innerHTML = SUGGEST_BASE.map(function (t) {
+      return '<div class="suggest" data-suggest="' + t + '">' + ICONS.pin + '<span>' + t + '</span></div>';
+    }).join("");
+    box.hidden = false;
+  });
+  $("addrClear").addEventListener("click", function () {
+    var inp = $("addrInput");
+    inp.value = "";
+    this.hidden = true;
+    $("addrSuggests").hidden = true;
+    updateAddrSave();
+    inp.focus();
+  });
+  $("addrSuggests").addEventListener("click", function (e) {
+    var node = e.target.closest("[data-suggest]");
+    if (!node) return;
+    $("addrInput").value = node.getAttribute("data-suggest");
+    $("addrClear").hidden = false;
+    this.hidden = true;
+    updateAddrSave();
+  });
+  $("addrSave").addEventListener("click", function () {
+    var isRegional = S.delivery === "regional";
+    var comment = $("addrComment").value.trim();
+    var phone = $("addrPhone").value.trim();
+    var rec, id;
+    if (isRegional && S.addrTab === "terminal") {
+      if (!S.modalCity) { return; }
+      var tText = "г. " + S.modalCity + ", терминал ТК";
+      if (S.addrEditId === "new") {
+        id = "a" + Date.now();
+        S.addresses.push({ id: id, text: tText, sub: "Доставка до терминала ТК", kind: "terminal", city: S.modalCity, comment: comment, phone: phone });
+        S.addressId = id;
+      } else {
+        rec = findRec(S.addresses, S.addrEditId);
+        if (rec) { rec.text = tText; rec.sub = "Доставка до терминала ТК"; rec.kind = "terminal"; rec.city = S.modalCity; rec.comment = comment; rec.phone = phone; }
+        S.addressId = S.addrEditId;
+      }
+    } else {
+      var v = $("addrInput").value.trim();
+      var flat = $("addrFlat").value.trim();
+      var salon = $("addrSalon").value.trim();
+      if (!v) { closeAddrModal(); render(); return; }
+      if (!flat) { var fe = $("addrFlat"); fe.classList.add("field--error"); fe.focus(); return; }
+      var sub = isRegional ? "Доставка до адреса" : "Адрес доставки";
+      if (S.addrEditId === "new") {
+        id = "a" + Date.now();
+        S.addresses.push({ id: id, text: v, sub: sub, kind: "address", flat: flat, salon: salon, comment: comment, phone: phone });
+        S.addressId = id;
+      } else {
+        rec = findRec(S.addresses, S.addrEditId);
+        if (rec) { rec.text = v; rec.sub = sub; rec.kind = "address"; rec.flat = flat; rec.salon = salon; rec.comment = comment; rec.phone = phone; }
+        S.addressId = S.addrEditId;
+      }
+    }
+    if (S.phoneStage === "confirmed") { S.open.payment = true; S.open.shipterms = true; S.open.note = true; }
+    closeAddrModal();
+    render();
+  });
+
+  /* --- подтверждение удаления --- */
+  function askDelete(kind, id, text) {
+    S.confirm = { kind: kind, id: id };
+    $("confirmTitle").textContent = kind === "addr" ? "Удалить адрес?" : "Удалить телефон?";
+    $("confirmSub").textContent = text;
+    $("confirmModal").hidden = false;
+  }
+  $("phoneDelete").addEventListener("click", function () {
+    if (phoneEditId && phoneEditId !== "new") {
+      var rec = findRec(S.phones, phoneEditId);
+      askDelete("phone", phoneEditId, rec ? rec.text : "");
+    }
+  });
+  $("addrDelete").addEventListener("click", function () {
+    if (S.addrEditId && S.addrEditId !== "new") {
+      var rec = findRec(S.addresses, S.addrEditId);
+      askDelete("addr", S.addrEditId, rec ? rec.text : "");
+    }
+  });
+  $("confirmDelete").addEventListener("click", function () {
+    var c = S.confirm;
+    if (!c) return;
+    if (c.kind === "addr") {
+      S.addresses = S.addresses.filter(function (a) { return a.id !== c.id; });
+      if (S.addressId === c.id) S.addressId = S.addresses.length ? S.addresses[0].id : null;
+      if (!S.addresses.length) $("addrPop").hidden = true;
+      if (S.addrEditId === c.id) closeAddrModal();
+    } else {
+      S.phones = S.phones.filter(function (x) { return x.id !== c.id; });
+      if (S.phoneId === c.id) {
+        S.phoneId = S.phones.length ? S.phones[0].id : null;
+        if (!S.phones.length) { S.phoneStage = "empty"; S.phoneAgreed = false; }
+      }
+      if (!S.phones.length) $("phonePop").hidden = true;
+      else showPhoneList();
+    }
+    S.confirm = null;
+    $("confirmModal").hidden = true;
+    render();
+  });
+
+  /* --- общий делегат кликов --- */
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+
+    var actionNode = t.closest("[data-action]");
+    if (actionNode) {
+      var action = actionNode.getAttribute("data-action");
+      if (action === "phone-open") { openPhonePop(); return; }
+      if (action === "phone-close") { $("phonePop").hidden = true; showPhoneList(); return; }
+      if (action === "phone-add") { openPhoneForm(null); return; }
+      if (action === "phone-cancel") { if (S.phones.length) showPhoneList(); else $("phonePop").hidden = true; return; }
+      if (action === "notice-close") { S.noticeDismissed = true; $("phoneNotice").hidden = true; return; }
+      if (action === "addr-open") { closeAllPopovers(); if (S.addresses.length) $("addrPop").hidden = false; else openAddrModal(null); return; }
+      if (action === "addr-close") { $("addrPop").hidden = true; return; }
+      if (action === "addr-add") { openAddrModal(null); return; }
+      if (action === "addr-modal-close") { closeAddrModal(); return; }
+      if (action === "addr-back") {
+        var am = $("addrModal");
+        if (am.classList.contains("is-step2")) { setSheetStep(1); fitSheetHeight(true); return; }
+        closeAddrModal();
+        if (S.addresses.length) $("addrPop").hidden = false;
+        return;
+      }
+      if (action === "confirm-cancel") { S.confirm = null; $("confirmModal").hidden = true; return; }
+      if (action === "tk-open") { $("tkModal").hidden = false; syncScrollLock(); return; }
+      if (action === "tk-close") { $("tkModal").hidden = true; syncScrollLock(); return; }
+    }
+
+    var head = t.closest("[data-toggle]");
+    if (head) {
+      var key = head.getAttribute("data-toggle");
+      S.open[key] = !S.open[key];
+      render();
+      return;
+    }
+
+    var del = t.closest("[data-delivery]");
+    if (del) {
+      S.delivery = del.getAttribute("data-delivery");
+      closeAllPopovers();
+      S.open.delivery = true; S.open.pickup = true; S.open.address = true;
+      render();
+      return;
+    }
+
+    var pick = t.closest("[data-pickup]");
+    if (pick) { S.pickupId = pick.getAttribute("data-pickup"); render(); return; }
+
+    var city = t.closest("[data-city]");
+    if (city) { setModalCity(city.getAttribute("data-city"), false); return; }
+
+    var tab = t.closest("[data-addr-tab]");
+    if (tab) { setAddrTab(tab.getAttribute("data-addr-tab")); return; }
+
+    var term = t.closest("[data-term]");
+    if (term) { var tg = term.getAttribute("data-term"); S.terms[tg] = !S.terms[tg]; render(); return; }
+
+    var pay = t.closest("[data-payment]");
+    if (pay) { S.payment = pay.getAttribute("data-payment"); render(); return; }
+
+    var aEdit = t.closest("[data-addr-edit]");
+    if (aEdit) { e.stopPropagation(); openAddrModal(aEdit.getAttribute("data-addr-edit")); return; }
+    var aDel = t.closest("[data-addr-delete]");
+    if (aDel) {
+      e.stopPropagation();
+      var aid = aDel.getAttribute("data-addr-delete");
+      var arec = findRec(S.addresses, aid);
+      askDelete("addr", aid, arec ? arec.text : "");
+      return;
+    }
+    var aSel = t.closest("[data-addr-select]");
+    if (aSel) {
+      S.addressId = aSel.getAttribute("data-addr-select");
+      $("addrPop").hidden = true;
+      if (S.phoneStage === "confirmed") { S.open.payment = true; S.open.shipterms = true; S.open.note = true; }
+      render();
+      return;
+    }
+
+    var pEdit = t.closest("[data-phone-edit]");
+    if (pEdit) { e.stopPropagation(); openPhoneForm(pEdit.getAttribute("data-phone-edit")); return; }
+    var pDel = t.closest("[data-phone-delete]");
+    if (pDel) {
+      e.stopPropagation();
+      var pid = pDel.getAttribute("data-phone-delete");
+      var prec = findRec(S.phones, pid);
+      askDelete("phone", pid, prec ? prec.text : "");
+      return;
+    }
+    var pSel = t.closest("[data-phone-select]");
+    if (pSel) {
+      confirmPhone(pSel.getAttribute("data-phone-select"));
+      $("phonePop").hidden = true;
+      render();
+      return;
+    }
+  });
+
+  /* --- прочие обработчики --- */
+  $("submitBtn").addEventListener("click", function () {
+    if (this.disabled) return;
+    S.screen = "success";
+    render();
+    window.scrollTo(0, 0);
+  });
+  $("backBtn").addEventListener("click", function () { S.screen = "checkout"; render(); });
+  $("scNew").addEventListener("click", function () { setScenario("new"); });
+  $("scRet").addEventListener("click", function () { setScenario("returning"); });
+  $("scReset").addEventListener("click", function () { setScenario(S.scenario); });
+  $("addrModal").addEventListener("click", function (e) { if (e.target === this) closeAddrModal(); });
+  $("confirmModal").addEventListener("click", function (e) { if (e.target === this) { S.confirm = null; this.hidden = true; } });
+  $("tkModal").addEventListener("click", function (e) { if (e.target === this) { this.hidden = true; syncScrollLock(); } });
+
+  /* --- Свайп вниз для закрытия нижних листов --- */
+  function isSheetMode() { return window.matchMedia("(max-width: 767px)").matches; }
+  function getScrim(sheet) {
+    var s = sheet.closest(".modal-scrim");
+    if (s) return s;
+    var p = sheet.parentNode;
+    return p && p.querySelector ? p.querySelector(".scrim") : null;
+  }
+  function makeSheetDraggable(getSheet, getGripHost, closeFn) {
+    var grip = null;
+    function ensureGrip() {
+      var host = getGripHost();
+      if (!host) return null;
+      if (grip && grip.parentNode === host) return grip;
+      grip = host.querySelector(".sheet-grip");
+      if (!grip) {
+        grip = document.createElement("div");
+        grip.className = "sheet-grip";
+        host.insertBefore(grip, host.firstChild);
+      }
+      return grip;
+    }
+    function bind() {
+      var g = ensureGrip();
+      if (!g || g.dataset.bound) return;
+      g.dataset.bound = "1";
+      var startY = 0, dy = 0, dragging = false, sheet = null, lastT = 0, lastY = 0, v = 0;
+      g.addEventListener("pointerdown", function (e) {
+        if (!isSheetMode()) return;
+        sheet = getSheet();
+        if (!sheet) return;
+        dragging = true; dy = 0; v = 0;
+        startY = lastY = e.clientY; lastT = e.timeStamp;
+        sheet.style.animation = "none";
+        sheet.style.transition = "none";
+        g.setPointerCapture(e.pointerId);
+        e.preventDefault();
+      });
+      g.addEventListener("pointermove", function (e) {
+        if (!dragging) return;
+        dy = Math.max(0, e.clientY - startY);
+        var dt = e.timeStamp - lastT;
+        if (dt > 0) v = (e.clientY - lastY) / dt;
+        lastT = e.timeStamp; lastY = e.clientY;
+        sheet.style.transform = "translateY(" + dy + "px)";
+        var scrim = getScrim(sheet);
+        if (scrim) {
+          scrim.style.animation = "none";
+          scrim.style.transition = "none";
+          scrim.style.backgroundColor = "rgba(26,51,40," + (0.45 * Math.max(0.3, 1 - dy / 420)).toFixed(3) + ")";
+        }
+      });
+      function finish() {
+        if (!dragging) return;
+        dragging = false;
+        var scrim = getScrim(sheet);
+        var h = sheet.getBoundingClientRect().height || 400;
+        var dismiss = dy > Math.min(140, h * 0.28) || v > 0.9;
+        if (dismiss) {
+          sheet.style.transition = "transform 0.22s cubic-bezier(0.25,0.46,0.45,0.94)";
+          sheet.style.transform = "translateY(" + (h + 40) + "px)";
+          if (scrim) { scrim.style.transition = "background-color 0.22s ease"; scrim.style.backgroundColor = "rgba(26,51,40,0)"; }
+          setTimeout(function () {
+            sheet.style.transition = ""; sheet.style.transform = ""; sheet.style.animation = "";
+            if (scrim) { scrim.style.transition = ""; scrim.style.backgroundColor = ""; scrim.style.animation = ""; }
+            closeFn();
+            syncScrollLock();
+          }, 210);
+        } else {
+          sheet.style.transition = "transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)";
+          sheet.style.transform = "";
+          if (scrim) { scrim.style.transition = "background-color 0.26s ease"; scrim.style.backgroundColor = ""; }
+          setTimeout(function () {
+            sheet.style.transition = ""; sheet.style.animation = "";
+            if (scrim) { scrim.style.transition = ""; scrim.style.animation = ""; }
+          }, 260);
+        }
+      }
+      g.addEventListener("pointerup", finish);
+      g.addEventListener("pointercancel", finish);
+    }
+    bind();
+    return bind;
+  }
+
+  var rebindSheets = [
+    makeSheetDraggable(
+      function () { return $("addrModal").querySelector(".modal"); },
+      function () { return $("addrModal").querySelector(".modal-head"); },
+      function () { closeAddrModal(); }
+    ),
+    makeSheetDraggable(
+      function () { return $("tkModal").querySelector(".tk-card"); },
+      function () { return $("tkModal").querySelector(".tk-head"); },
+      function () { $("tkModal").hidden = true; }
+    ),
+    makeSheetDraggable(
+      function () { return $("addrPop").querySelector(".popover"); },
+      function () { return $("addrPop").querySelector(".popover"); },
+      function () { $("addrPop").hidden = true; }
+    ),
+    makeSheetDraggable(
+      function () { return $("phonePop").querySelector(".popover"); },
+      function () { return $("phonePop").querySelector(".popover"); },
+      function () { $("phonePop").hidden = true; }
+    )
+  ];
+  document.addEventListener("click", function () {
+    setTimeout(function () { rebindSheets.forEach(function (f) { f(); }); }, 0);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    closeAllPopovers();
+    closeAddrModal();
+    $("confirmModal").hidden = true;
+    $("tkModal").hidden = true;
+    syncScrollLock();
+  });
+
+  setScenario("returning");
+})();
+</script>
+</body>
+</html>
