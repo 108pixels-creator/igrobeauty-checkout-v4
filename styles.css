@@ -466,9 +466,14 @@ button { font: inherit; }
 
 .pickup-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .pickup { align-items: flex-start; padding: 16px 18px; gap: 12px; }
-.pickup.is-on { padding: 15px 17px; }
 .pickup-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
-.pickup-title { font-family: var(--font-heading); font-weight: 700; font-size: 17px; color: var(--green-primary); }
+.pickup > .radio { align-self: flex-start; margin-top: 0; }
+.pickup-title {
+  font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--green-primary);
+  line-height: 18px; display: block;
+}
+.pickup-pick { font-family: var(--font-body); font-weight: 400; font-size: 13px; color: #4FA96F; }
+.pickup:not(.is-on) .pickup-pick { display: none; }
 .pickup-sub { font-family: var(--font-body); font-weight: 700; font-size: 14px; color: var(--ink); }
 .pickup-line { font-size: 14px; line-height: 1.45; color: var(--ink); }
 
@@ -480,8 +485,10 @@ button { font: inherit; }
 .pay { min-height: 62px; }
 
 /* Мягкое выделение (как у выбранного города) для пунктов самовывоза и типа оплаты */
+.opt.pay.is-on { padding: 13px 16px; }
+.opt.pickup.is-on { padding: 16px 18px; }
 .opt.pickup.is-on, .opt.pay.is-on {
-  padding: 13px 16px; border: 1px solid rgba(21,143,69,0.28);
+  border: 1px solid rgba(21,143,69,0.28);
   background: #f2f8f4; box-shadow: none;
 }
 .opt.pickup:hover, .opt.pay:hover { border-color: var(--green-accent); background: rgba(21,143,69,0.04); }
@@ -1012,7 +1019,10 @@ button { font: inherit; }
 
   .opt { padding: 12px 14px; }
   .opt.is-on { padding: 11px 13px; }
-  .opt.pickup.is-on, .opt.pay.is-on { padding: 12px 14px; }
+  .opt.pay.is-on { padding: 12px 14px; }
+  .opt.pickup, .opt.pickup.is-on { padding: 14px 14px; }
+  .pickup-title { font-size: 14px; }
+  .pickup-pick { font-size: 12px; }
   .opt--icon { padding: 12px 14px; gap: 12px; }
   .opt--icon.is-on { padding: 11px 13px; }
   .opt-icon { width: 44px; height: 44px; }
