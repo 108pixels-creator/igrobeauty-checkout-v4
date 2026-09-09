@@ -247,20 +247,28 @@ button { font: inherit; }
 .pop-field { position: relative; flex: 1 1 auto; min-width: 0; }
 
 .field {
-  width: 100%; height: 48px; padding: 0 16px; font-family: var(--font-body); font-size: 16px;
+  width: 100%; height: 56px; padding: 0 16px; font-family: var(--font-body); font-size: 16px;
   color: var(--ink); background: #fff; border: 1px solid var(--hairline); border-radius: var(--radius-sm);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, padding 0.18s ease;
 }
+/* Поле с плавающим лейблом: при вводе/фокусе значение опускается ниже, лейбл уходит наверх */
+.field:has(~ .ph-req):focus,
+.field:has(~ .ph-req):not(:placeholder-shown) { padding-top: 22px; padding-bottom: 6px; }
 .field--phone { padding-right: 44px; }
 .field--clearable { padding-right: 44px; }
 .field--req { padding-right: 28px; }
 .ph-req {
   position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
   display: flex; align-items: center; gap: 4px; pointer-events: none;
-  font-family: var(--font-body); font-size: 16px; color: var(--ink-faint);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.1;
+  color: color-mix(in srgb, var(--ink) 40%, transparent);
+  transition: top 0.18s ease, font-size 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
 .ph-req b { color: var(--green-accent); font-weight: 700; }
-.field:not(:placeholder-shown) ~ .ph-req { display: none; }
+.field:focus ~ .ph-req,
+.field:not(:placeholder-shown) ~ .ph-req {
+  top: 9px; transform: none; font-size: 13px; color: color-mix(in srgb, var(--ink) 40%, transparent);
+}
 .field--error { border-color: var(--error) !important; box-shadow: 0 0 0 3px rgba(200,50,50,0.12) !important; }
 .field::placeholder { color: var(--ink-faint); }
 .field:focus { outline: none; border-color: var(--green-accent); box-shadow: 0 0 0 3px #f1f8f5; }
@@ -297,12 +305,13 @@ button { font: inherit; }
 }
 .btn-primary:hover { background: var(--green-accent); border-color: var(--green-accent); box-shadow: 0 4px 8px 0 rgba(0,107,62,0.3); }
 .btn-primary:active { transform: scale(0.98); }
-.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+.btn-primary:disabled { opacity: 0.25; cursor: not-allowed; box-shadow: none; }
 .btn-primary:disabled:hover { background: var(--green-uplift); border-color: var(--green-uplift); box-shadow: none; }
-/* неактивные кнопки — цвет активной с прозрачностью 40% */
+/* неактивные кнопки — цвет активной с прозрачностью 25% */
 .btn-outline:disabled, .btn-green:disabled, .btn-grey:disabled, .btn-edit:disabled,
-.btn-del:disabled, .btn-danger:disabled, .btn-close:disabled {
-  opacity: 0.4; cursor: not-allowed; box-shadow: none;
+.btn-del:disabled, .btn-danger:disabled, .btn-close:disabled,
+.btn:disabled, button:disabled, .field:disabled, .textarea:disabled, .is-disabled {
+  opacity: 0.25; cursor: not-allowed; box-shadow: none;
 }
 .btn-outline:disabled:hover, .btn-green:disabled:hover, .btn-grey:disabled:hover,
 .btn-edit:disabled:hover, .btn-del:disabled:hover, .btn-danger:disabled:hover, .btn-close:disabled:hover {
@@ -489,7 +498,7 @@ button { font: inherit; }
 .opt.pickup.is-on { padding: 16px 18px; }
 .opt.pickup.is-on, .opt.pay.is-on {
   border: 1px solid rgba(21,143,69,0.28);
-  background: #f2f8f4; box-shadow: none;
+  background: #f1f8f5; box-shadow: none;
 }
 .opt.pickup:hover, .opt.pay:hover { border-color: var(--green-accent); background: rgba(21,143,69,0.04); }
 .opt.pickup.is-on:hover, .opt.pay.is-on:hover { background: #eaf4ee; border-color: rgba(21,143,69,0.45); }
@@ -576,7 +585,7 @@ button { font: inherit; }
 .city-picked-name { flex: 1; min-width: 0; font-family: var(--font-body); font-weight: 700; font-size: 16px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .city-picked-sub { font-size: 13px; color: var(--ink-soft); }
 .city-picked--modal {
-  flex: 1; padding: 0 15px; margin-bottom: 0; background: #f2f8f4;
+  flex: 1; padding: 0 15px; margin-bottom: 0; background: #f1f8f5;
   border: 1px solid rgba(21,143,69,0.28); box-shadow: none;
 }
 .city-picked--modal > svg { flex: none; color: var(--green-accent); }
