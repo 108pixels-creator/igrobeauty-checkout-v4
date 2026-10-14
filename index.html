@@ -392,6 +392,15 @@
             <button type="button" class="btn-green" id="backBtn">Назад в корзину</button>
           </div>
         </div>
+        <!-- Согласие с офертой — Switch из ДС v3 (igro-switch) -->
+        <div class="offer" id="offerSwitch">
+          <label class="igro-switch offer-switch">
+            <input type="checkbox" role="switch" class="igro-control-input" id="offerCb" aria-describedby="offerHint">
+            <span class="igro-control-visual igro-switch__track" aria-hidden="true"><span class="igro-switch__knob"></span></span>
+            <span>Согласен с <a href="https://www.igrobeauty.ru/about/public/" target="_blank" rel="noopener">публичной офертой</a></span>
+          </label>
+          <p class="offer-hint" id="offerHint" role="alert" hidden>Чтобы оформить заказ, примите условия публичной оферты</p>
+        </div>
       </div>
     </div>
 
@@ -824,6 +833,8 @@
       phoneStage: isNew ? "empty" : "confirmed",
       phone: DEFAULT_PHONE,
       phoneAgreed: isNew ? true : false,
+      offerAgreed: false,
+      offerError: false,
       delivery: isNew ? null : "courier",
       pickupId: "w1",
       addrPools: {
@@ -1013,6 +1024,12 @@
 
     // итог
     var addrReady = isPickup || !!S.addressId;
+    $("offerSwitch").hidden = isSuccess;
+    $("offerCb").checked = !!S.offerAgreed;
+    var offerErr = !!S.offerError && !S.offerAgreed;
+    $("offerSwitch").classList.toggle("is-invalid", offerErr);
+    $("offerCb").setAttribute("aria-invalid", offerErr ? "true" : "false");
+    $("offerHint").hidden = !offerErr;
     var canSubmit = confirmed && S.phoneAgreed && addrReady;
     $("submitBtn").disabled = !canSubmit;
     $("warnBlock").hidden = !(isSuccess || (confirmed && addrReady));
@@ -1535,8 +1552,24 @@
   });
 
   /* --- прочие обработчики --- */
+  $("offerCb").addEventListener("change", function () {
+    S.offerAgreed = this.checked;
+    if (S.offerAgreed) S.offerError = false;
+    render();
+  });
+
   $("submitBtn").addEventListener("click", function () {
     if (this.disabled) return;
+    // оферта не принята — дальше не пускаем, подсвечиваем переключатель
+    if (!S.offerAgreed) {
+      S.offerError = true;
+      render();
+      var box = $("offerSwitch");
+      box.classList.remove("is-shake"); void box.offsetWidth; box.classList.add("is-shake");
+      box.scrollIntoView({ block: "center", behavior: "smooth" });
+      $("offerCb").focus({ preventScroll: true });
+      return;
+    }
     S.screen = "success";
     render();
     window.scrollTo(0, 0);

@@ -1366,3 +1366,43 @@ button { font: inherit; }
 @media (max-width: 767px) {
   .col-left { container-type: normal; }
 }
+
+/* ---------- Switch — из ДС v3 (components.css, .igro-switch), токены ДС подставлены значениями ---------- */
+.igro-control-input { position: absolute; width: 1px; height: 1px; margin: 0; padding: 0; opacity: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.igro-control-input:focus-visible + .igro-control-visual { outline: 2px solid var(--green-accent); outline-offset: 2px; }
+.igro-switch {
+  position: relative; display: inline-flex; align-items: center; gap: 12px; cursor: pointer;
+  font-family: var(--font-body); font-size: 16px; color: var(--ink); letter-spacing: var(--tracking-normal);
+}
+.igro-switch__track {
+  position: relative; flex: none; box-sizing: border-box; width: 44px; height: 24px; border-radius: var(--radius-full);
+  background: var(--ceramic); box-shadow: inset 0 0 0 1px #8a9297;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.igro-switch__knob {
+  position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: var(--radius-full);
+  background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  transition: left 0.2s var(--ease-standard);
+}
+.igro-control-input:checked + .igro-switch__track { background: var(--green-accent); box-shadow: none; }
+.igro-control-input:checked + .igro-switch__track .igro-switch__knob { left: 23px; }
+/* Hover — в ДС v3 у Switch нет (ни в Figma, ни в components.css); сделан по образцу Checkbox:
+   выкл. — рамка Accent + --ring-select, вкл. — трек --action-accent-strong + --ring-select */
+@media (hover: hover) {
+  .igro-switch:hover .igro-control-input:not(:checked) + .igro-switch__track { box-shadow: inset 0 0 0 1px var(--green-accent), 0 0 0 3px rgba(21,143,69,0.10); }
+  .igro-switch:hover .igro-control-input:checked + .igro-switch__track { background: #12803d; box-shadow: 0 0 0 3px rgba(21,143,69,0.10); }
+}
+
+/* согласие с офертой — под волнистым краем чека */
+.offer { margin: 48px 26px 0; }
+.offer[hidden] { display: none; }
+.offer-switch { display: flex; line-height: 1.3; }
+/* не принята при нажатии «Оформить заказ» — ошибка как у полей ДС (--status-error, --ring-error) */
+.offer.is-invalid .igro-switch .igro-control-input:not(:checked) + .igro-switch__track { box-shadow: inset 0 0 0 1px #c82014, 0 0 0 3px rgba(200,32,20,0.14); }
+.offer.is-invalid .igro-control-input:focus-visible + .igro-switch__track { outline-color: #c82014; }
+.offer-hint { margin: 8px 0 0 56px; font-family: var(--font-body); font-size: 14px; line-height: 1.35; color: #c82014; text-wrap: pretty; }
+.offer.is-shake { animation: offer-shake 0.4s var(--ease-standard); }
+@keyframes offer-shake { 0%,100% { transform: none; } 20%,60% { transform: translateX(-4px); } 40%,80% { transform: translateX(4px); } }
+@media (prefers-reduced-motion: reduce) { .offer.is-shake { animation: none; } }
+.offer-switch a { color: var(--green-uplift); text-decoration: underline; text-underline-offset: 2px; }
+.offer-switch a:hover { color: var(--green-primary); }
